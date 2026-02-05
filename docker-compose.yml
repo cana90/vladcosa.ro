@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  vladcosa-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vladcosa-psychology
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - vladcosa-network
+    labels:
+      # For Nginx Proxy Manager / Traefik
+      - "traefik.enable=true"
+      - "traefik.http.routers.vladcosa.rule=Host(`vladcosa.ro`) || Host(`www.vladcosa.ro`)"
+      - "traefik.http.routers.vladcosa.entrypoints=websecure"
+      - "traefik.http.routers.vladcosa.tls.certresolver=letsencrypt"
+      - "traefik.http.services.vladcosa.loadbalancer.server.port=80"
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  vladcosa-network:
+    driver: bridge
+
+# Note: If you need a database in the future, uncomment below:
+# volumes:
+#   postgres-data:
+#
+# services:
+#   postgres:
+#     image: postgres:16-alpine
+#     container_name: vladcosa-db
+#     restart: unless-stopped
+#     environment:
+#       POSTGRES_DB: vladcosa_db
+#       POSTGRES_USER: ${DB_USER:-vladcosa}
+#       POSTGRES_PASSWORD: ${DB_PASSWORD}
+#     volumes:
+#       - postgres-data:/var/lib/postgresql/data
+#     networks:
+#       - vladcosa-network
