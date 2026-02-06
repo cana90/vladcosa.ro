@@ -1,6 +1,14 @@
 export default function Hero() {
+  const scrollToContact = (e) => {
+    e.preventDefault()
+    const element = document.querySelector('#contact')
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
-    <section className="relative min-h-screen flex items-center bg-gradient-to-br from-cream-50 via-cream-100 to-sage-50">
+    <section id="hero" className="relative min-h-screen flex items-center bg-gradient-to-br from-cream-50 via-cream-100 to-sage-50">
       <div className="container-custom py-20 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           {/* Left Column - Text Content */}
@@ -23,7 +31,7 @@ export default function Hero() {
             </div>
             
             <div className="hidden lg:flex flex-col sm:flex-row sm:items-center gap-6 pt-2">
-              <a href="#contact" className="btn-primary">
+              <a href="#contact" onClick={scrollToContact} className="btn-primary">
                 Programează o consultație
               </a>
               <a href="#about" className="group inline-flex items-center text-sage-700 font-medium hover:text-sage-800 transition-colors">
@@ -50,7 +58,7 @@ export default function Hero() {
 
           {/* Mobile-only buttons placed under image */}
           <div className="lg:hidden flex flex-col items-center gap-6 mt-4 w-full">
-            <a href="#contact" className="btn-primary w-full text-center">
+            <a href="#contact" onClick={scrollToContact} className="btn-primary w-full text-center">
               Programează o consultație
             </a>
           </div>

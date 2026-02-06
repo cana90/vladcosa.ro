@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from './components/Hero';
 import About from './components/About';
+import Gestalt from './components/Gestalt';
 import Services from './components/Services';
 import Contact from './components/Contact';
 import Navigation from './components/Navigation';
@@ -13,6 +14,8 @@ function LandingPage() {
             <Hero />
             <div className="w-full h-px bg-sage-200" />
             <About />
+            <div className="w-full h-px bg-sage-200" />
+            <Gestalt />
             <div className="w-full h-px bg-sage-200" />
             <Services />
             <div className="w-full h-px bg-sage-200" />

@@ -1,23 +1,28 @@
 const services = [
   {
-    title: "Consultații Individuale",
+    title: "Terapie Individuală",
     description: "Sesiuni personalizate pentru adulți care se confruntă cu anxietate, depresie, stres sau căutări identitare.",
     duration: "50 minute",
+    icon: "👤"
   },
   {
     title: "Terapie de Cuplu",
     description: "Sprijin pentru relații, comunicare îmbunătățită și rezolvarea conflictelor într-un cadru empatic.",
     duration: "60 minute",
+    icon: (
+      <svg className="w-8 h-8" viewBox="0 0 100 100" fill="currentColor">
+        {/* Rubin's Vase/Faces - simplified */}
+        <path d="M30,20 Q25,40 25,50 Q25,60 30,80 L30,20" />
+        <path d="M70,20 Q75,40 75,50 Q75,60 70,80 L70,20" />
+        <path d="M30,20 Q50,22 70,20 L70,80 Q50,78 30,80 Z" opacity="0.7" />
+      </svg>
+    )
   },
   {
-    title: "Consiliere pentru Tineri",
-    description: "Suport dedicat adolescenților și tinerilor adulți în navigarea provocărilor specifice acestei perioade.",
+    title: "Consiliere Online",
+    description: "Sesiuni flexibile prin videoconferință, oferind același nivel de profesionalism și confidențialitate ca ședințele față în față.",
     duration: "50 minute",
-  },
-  {
-    title: "Consiliere pentru Părinți",
-    description: "Ghidare și suport pentru părinți în dezvoltarea unor strategii educaționale eficiente și sănătoase.",
-    duration: "50 minute",
+    icon: "💻"
   },
 ]
 
@@ -27,7 +32,7 @@ export default function Services() {
       <div className="container-custom">
         <div className="max-w-3xl mb-16">
           <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-6">
-            Servicii Oferite
+            Servicii
           </h2>
           <p className="text-lg text-slate-600 leading-relaxed">
             Fiecare sesiune este adaptată nevoilor tale individuale, oferind un spațiu 
@@ -35,7 +40,7 @@ export default function Services() {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
           {services.map((service, index) => (
             <div 
               key={index}
@@ -53,18 +58,6 @@ export default function Services() {
               <p className="text-slate-600 leading-relaxed">
                 {service.description}
               </p>
-              
-              <div className="mt-6 pt-6 border-t border-slate-100">
-                <a 
-                  href="#contact" 
-                  className="text-sage-700 font-medium inline-flex items-center hover:text-sage-800 transition-colors"
-                >
-                  Solicită detalii
-                  <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
             </div>
           ))}
         </div>

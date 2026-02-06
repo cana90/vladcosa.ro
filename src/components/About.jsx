@@ -1,31 +1,15 @@
 import { useState } from 'react'
 
 export default function About() {
-  const [currentImage, setCurrentImage] = useState(0)
   const [isExpanded, setIsExpanded] = useState(false)
-  
-  // Office images
-  const officeImages = [
-    '/cabinet1.jpg',
-    '/cabinet2.jpg',
-    '/cabinet3.jpg'
-  ]
-  
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % officeImages.length)
-  }
-  
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + officeImages.length) % officeImages.length)
-  }
   
   return (
     <section id="about" className="py-16 lg:py-24 bg-white">
       <div className="container-custom">
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
+        <div className="max-w-4xl mx-auto">
           
-          {/* Left Column - Content (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col justify-center">
+          {/* Content */}
+          <div className="flex flex-col justify-center">
             <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-8">
               Despre mine
             </h2>
@@ -70,7 +54,7 @@ export default function About() {
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="group flex items-center gap-2 text-sage-700 font-medium hover:text-sage-800 transition-colors pt-2 focus:outline-none"
               >
-                <span>{isExpanded ? 'Citește mai puțin' : 'Citește toată povestea'}</span>
+                <span>{isExpanded ? 'Citește mai puțin' : 'Citește toata povestea'}</span>
                 <svg 
                   className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} 
                   fill="none" 
@@ -80,34 +64,6 @@ export default function About() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-            </div>
-          </div>
-
-          {/* Right Column - Visuals only */}
-          <div className="lg:col-span-5 lg:pt-8">
-            {/* Carousel */}
-            <div className="bg-sage-50 p-2 rounded-2xl">
-              <div className="relative rounded-xl overflow-hidden aspect-[4/3] shadow-sm">
-                <img 
-                  src={officeImages[currentImage]} 
-                  alt="Cabinet"
-                  className="w-full h-full object-cover"
-                />
-                
-                <div className="absolute inset-x-0 bottom-0 p-4 flex justify-between items-center bg-gradient-to-t from-black/50 to-transparent">
-                  <span className="text-white/90 text-sm font-medium">Cabinet</span>
-                  <div className="flex gap-2">
-                    <button onClick={(e) => {e.stopPropagation(); prevImage()}} className="text-white hover:text-sage-200 transition-colors">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
-                    </button>
-                    <button onClick={(e) => {e.stopPropagation(); nextImage()}} className="text-white hover:text-sage-200 transition-colors">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           

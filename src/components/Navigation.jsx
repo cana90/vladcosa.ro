@@ -1,34 +1,51 @@
-import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const location = useLocation()
-  const isHome = location.pathname === '/'
+  const [activeSection, setActiveSection] = useState('hero')
 
-  // Helper to handle navigation based on current route
+  // Track which section is currently in view
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['hero', 'about', 'gestalt', 'services', 'contact']
+      const scrollPosition = window.scrollY + 100
+
+      for (const section of sections) {
+        const element = document.getElementById(section)
+        if (element) {
+          const { offsetTop, offsetHeight } = element
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section)
+            break
+          }
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const handleNavClick = (hash) => {
     setIsOpen(false)
-    if (isHome) {
-      // If on home, just scroll
-      const element = document.querySelector(hash)
-      if (element) element.scrollIntoView({ behavior: 'smooth' })
-    } else {
-      // If not on home, route to home with hash is handled by browser native behavior if we use <a href="/">
-      // or we can just link to /
+    const element = document.querySelector(hash)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
-  const getLink = (hash) => {
-    return isHome ? hash : `/${hash}`
+  const getLinkClass = (section) => {
+    const baseClass = "text-slate-700 hover:text-sage-700 transition-colors font-medium"
+    const activeClass = "text-sage-700 border-b-2 border-sage-700"
+    return activeSection === section ? `${baseClass} ${activeClass}` : baseClass
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-cream-50/95 backdrop-blur-sm border-b border-sage-100">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-cream-50/80 backdrop-blur-md border-b border-sage-100/50">
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo/Brand */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <a href="#hero" onClick={(e) => { e.preventDefault(); handleNavClick('#hero') }} className="flex items-center gap-3 group cursor-pointer">
             <img src="/logo.png" alt="Logo" className="h-12 w-auto opacity-80 group-hover:opacity-100 transition-opacity" />
             <div className="flex flex-col">
               <span className="text-xl font-serif text-slate-900 group-hover:text-sage-700 transition-colors leading-tight">
@@ -38,23 +55,23 @@ export default function Navigation() {
                 Cabinet Individual de Psihologie
               </span>
             </div>
-          </Link>
+          </a>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-10">
-            <a href={getLink('#about')} className="text-slate-700 hover:text-sage-700 transition-colors font-medium">
+            <a href="#about" onClick={(e) => { e.preventDefault(); handleNavClick('#about') }} className={getLinkClass('about')}>
               Despre
             </a>
-            <Link to="/gestalt" className="text-slate-700 hover:text-sage-700 transition-colors font-medium">
-              Despre Gestalt
-            </Link>
-            <a href={getLink('#services')} className="text-slate-700 hover:text-sage-700 transition-colors font-medium">
+            <a href="#gestalt" onClick={(e) => { e.preventDefault(); handleNavClick('#gestalt') }} className={getLinkClass('gestalt')}>
+              Metodă
+            </a>
+            <a href="#services" onClick={(e) => { e.preventDefault(); handleNavClick('#services') }} className={getLinkClass('services')}>
               Servicii
             </a>
-            <a href={getLink('#contact')} className="text-slate-700 hover:text-sage-700 transition-colors font-medium">
+            <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavClick('#contact') }} className={getLinkClass('contact')}>
               Contact
             </a>
-            <a href={getLink('#contact')} className="btn-primary !py-2 !px-6 text-sm">
+            <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavClick('#contact') }} className="btn-primary !py-2 !px-6 text-sm">
               Programează
             </a>
           </div>
@@ -81,37 +98,37 @@ export default function Navigation() {
         {isOpen && (
           <div className="md:hidden py-4 space-y-4 border-t border-sage-100">
             <a 
-              href={getLink('#about')}
+              href="#about"
               className="block py-2 text-slate-700 hover:text-sage-700 transition-colors font-medium"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => { e.preventDefault(); handleNavClick('#about') }}
             >
               Despre
             </a>
-            <Link 
-              to="/gestalt"
-              className="block py-2 text-slate-700 hover:text-sage-700 transition-colors font-medium"
-              onClick={() => setIsOpen(false)}
-            >
-              Despre Gestalt
-            </Link>
             <a 
-              href={getLink('#services')} 
+              href="#gestalt"
               className="block py-2 text-slate-700 hover:text-sage-700 transition-colors font-medium"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => { e.preventDefault(); handleNavClick('#gestalt') }}
+            >
+              Metodă
+            </a>
+            <a 
+              href="#services" 
+              className="block py-2 text-slate-700 hover:text-sage-700 transition-colors font-medium"
+              onClick={(e) => { e.preventDefault(); handleNavClick('#services') }}
             >
               Servicii
             </a>
             <a 
-              href={getLink('#contact')} 
+              href="#contact" 
               className="block py-2 text-slate-700 hover:text-sage-700 transition-colors font-medium"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => { e.preventDefault(); handleNavClick('#contact') }}
             >
               Contact
             </a>
             <a 
               href="#contact" 
               className="btn-primary !py-2 !px-6 text-sm inline-block"
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => { e.preventDefault(); handleNavClick('#contact') }}
             >
               Programează
             </a>

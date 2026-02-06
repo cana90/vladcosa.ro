@@ -1,4 +1,23 @@
+import { useState } from 'react'
+
 export default function Contact() {
+  const [currentImage, setCurrentImage] = useState(0)
+  
+  // Office images
+  const officeImages = [
+    '/cabinet1.jpg',
+    '/cabinet2.jpg',
+    '/cabinet3.jpg'
+  ]
+  
+  const nextImage = () => {
+    setCurrentImage((prev) => (prev + 1) % officeImages.length)
+  }
+  
+  const prevImage = () => {
+    setCurrentImage((prev) => (prev - 1 + officeImages.length) % officeImages.length)
+  }
+
   return (
     <section id="contact" className="py-24 lg:py-32 bg-white">
       <div className="container-custom">
@@ -103,9 +122,51 @@ export default function Contact() {
             </div>
           </div>
           
-          {/* Right Column - Map */}
-          <div className="lg:sticky lg:top-32 lg:self-start">
-            <div className="aspect-square lg:aspect-auto lg:h-[700px] bg-gradient-to-br from-sage-100 to-slate-100 rounded-xl shadow-lg overflow-hidden">
+          {/* Right Column - Office Photos & Map */}
+          <div className="lg:sticky lg:top-32 lg:self-start space-y-8">
+            {/* Office Carousel */}
+            <div className="bg-sage-50 p-2 rounded-2xl">
+              <div className="relative rounded-xl overflow-hidden aspect-[4/3] shadow-sm">
+                <img 
+                  src={officeImages[currentImage]} 
+                  alt="Cabinet"
+                  className="w-full h-full object-cover"
+                />
+                
+                <div className="absolute inset-x-0 bottom-0 p-4 flex justify-between items-center bg-gradient-to-t from-black/50 to-transparent">
+                  <span className="text-white/90 text-sm font-medium">Cabinetul meu</span>
+                  <div className="flex gap-2">
+                    <button onClick={(e) => {e.stopPropagation(); prevImage()}} className="text-white hover:text-sage-200 transition-colors" aria-label="Previous image">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                    </button>
+                    <button onClick={(e) => {e.stopPropagation(); nextImage()}} className="text-white hover:text-sage-200 transition-colors" aria-label="Next image">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Image indicators */}
+                <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex gap-2">
+                  {officeImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImage(index)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        index === currentImage ? 'bg-white w-6' : 'bg-white/50'
+                      }`}
+                      aria-label={`Go to image ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* Map */}
+            <div className="aspect-square lg:aspect-[4/3] bg-gradient-to-br from-sage-100 to-slate-100 rounded-xl shadow-lg overflow-hidden">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2783.1!2d21.2269!3d45.7566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDQ1JzIzLjgiTiAyMcKwMTMnMzYuOCJF!5e0!3m2!1sen!2sro!4v1234567890!5m2!1sen!2sro&q=Strada+August+Treboniu+Laurian+5,+Timișoara+300200,+Romania"
                 width="100%"
