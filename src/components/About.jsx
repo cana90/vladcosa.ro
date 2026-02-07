@@ -4,17 +4,17 @@ export default function About() {
   const [isExpanded, setIsExpanded] = useState(false)
   
   return (
-    <section id="about" className="py-16 lg:py-24 bg-white">
+    <section id="about" className="py-8 lg:py-12 bg-white">
       <div className="container-custom">
         <div className="max-w-4xl mx-auto">
           
           {/* Content */}
           <div className="flex flex-col justify-center">
-            <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-8">
+            <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-4">
               Despre mine
             </h2>
             
-            <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
+            <div className="space-y-3 text-slate-700 leading-relaxed text-lg">
               <p className="font-light text-sage-700 text-xl">
                 Salut,
               </p>
@@ -24,7 +24,7 @@ export default function About() {
               </p>
               
               {/* Collapsible Content */}
-              <div className={`space-y-6 overflow-hidden transition-all duration-700 ease-in-out ${isExpanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className={`space-y-3 overflow-hidden transition-all duration-700 ease-in-out ${isExpanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
                 <p>
                   Un prim aspect pe care l-aș prezenta este că mereu am fost curios să învăț mai multe despre lumea înconjurătoare și oamenii care o populează. Îmi place să descopăr povești de viață, să aflu cum au reușit oamenii și popoarele să își depășească provocările care stăteau în calea dezvoltării lor naturale. În căutarile mele am studiat istorie, filozofie și psihologie, literatură fantasy și science-fiction.
                 </p>

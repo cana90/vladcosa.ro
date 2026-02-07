@@ -9,11 +9,11 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center bg-gradient-to-br from-cream-50 via-cream-100 to-sage-50">
-      <div className="container-custom py-20 lg:py-32">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+      <div className="container-custom py-8 lg:py-16">
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
           {/* Left Column - Text Content */}
-          <div className="space-y-6">
-            <div className="space-y-4">
+          <div className="space-y-3">
+            <div className="space-y-2">
               <h1 className="text-6xl sm:text-7xl lg:text-8xl font-light text-slate-900 leading-tight">
                 Vlad Coșa
               </h1>
@@ -24,13 +24,13 @@ export default function Hero() {
             
             <div className="w-24 h-px bg-sage-400"></div>
             
-            <div className="text-xl text-slate-700 leading-relaxed max-w-md space-y-3">
+            <div className="text-xl text-slate-700 leading-relaxed max-w-md space-y-1">
               <p>Sunt psiholog clinician și psihoterapeut Gestalt.</p>
               <p>Cred că fiecare persoană are în sine resurse de creștere și vindecare.</p>
               <p>Rolul meu este să creez un spațiu sigur, empatic și autentic în care aceste resurse să poată fi descoperite.</p>
             </div>
             
-            <div className="hidden lg:flex flex-col sm:flex-row sm:items-center gap-6 pt-2">
+            <div className="hidden lg:flex flex-col sm:flex-row sm:items-center gap-3 pt-1">
               <a href="#contact" onClick={scrollToContact} className="btn-primary">
                 Programează o consultație
               </a>

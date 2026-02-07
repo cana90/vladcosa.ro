@@ -1,18 +1,18 @@
 export default function Gestalt() {
   return (
-    <section id="gestalt" className="py-24 lg:py-32 bg-sage-50/30">
+    <section id="gestalt" className="py-8 lg:py-12 bg-sage-50/30">
       <div className="container-custom">
         {/* Header */}
-        <div className="max-w-4xl mx-auto mb-16 text-center">
-          <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-6">
+        <div className="max-w-4xl mx-auto mb-6 text-center">
+          <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-3">
             Terapia Gestalt
           </h2>
           <div className="w-24 h-1 bg-sage-500 mx-auto rounded-full"></div>
         </div>
 
         {/* Intro Section */}
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center mb-16">
-          <div className="space-y-6 text-slate-700 leading-relaxed text-lg">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-center mb-6">
+          <div className="space-y-3 text-slate-700 leading-relaxed text-lg">
             <p className="text-xl font-light text-sage-800">
               Gestalt terapia este o abordare optimistă, care crede în capacitatea intrinsecă a omului de a se vindeca și de a crește.
             </p>
@@ -32,8 +32,8 @@ export default function Gestalt() {
         </div>
 
         {/* Core Principles Cards */}
-        <div className="max-w-6xl mx-auto mb-16">
-          <h3 className="text-3xl font-light text-slate-900 mb-12 text-center">Principii Fundamentale</h3>
+        <div className="max-w-6xl mx-auto mb-6">
+          <h3 className="text-3xl font-light text-slate-900 mb-6 text-center">Principii Fundamentale</h3>
           
           <div className="grid md:grid-cols-3 gap-8">
             {/* Card 1: Aici și Acum - Here and Now */}

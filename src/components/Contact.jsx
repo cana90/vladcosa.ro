@@ -19,16 +19,16 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 lg:py-32 bg-white">
+    <section id="contact" className="py-8 lg:py-12 bg-white">
       <div className="container-custom">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
           {/* Left Column - Contact Info */}
-          <div className="space-y-8">
+          <div className="space-y-4">
             <div>
-              <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-6">
+              <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-3">
                 Programează o consultație
               </h2>
-              <p className="text-lg text-slate-600 leading-relaxed mb-8">
+              <p className="text-lg text-slate-600 leading-relaxed mb-4">
                 Poți programa o ședință direct online folosind butonul de mai jos sau putem intra în legătură prin detaliile de mai jos.
               </p>
               
@@ -48,7 +48,7 @@ export default function Contact() {
             
             <div className="w-24 h-px bg-sage-400"></div>
             
-            <div className="space-y-6">
+            <div className="space-y-3">
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-sage-100 rounded-xl flex items-center justify-center flex-shrink-0">
                   <svg className="w-6 h-6 text-sage-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
