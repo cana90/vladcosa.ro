@@ -20,13 +20,13 @@ export default function Gestalt() {
               Este o formă de psihoterapie umanistă care se concentrează pe experiența de "aici și acum", punând accent pe conștientizarea momentului prezent, a corpului și a emoțiilor, nu doar a gândurilor.
             </p>
           </div>
-          
+
           <div className="relative h-80 rounded-2xl overflow-hidden bg-sage-50/30 flex items-center justify-center p-8">
-            {/* Tree logo with transparent background */}
-            <img 
-              src="/treehero.png" 
-              alt="" 
+            <img
+              src="/treehero.png"
+              alt=""
               className="w-2/3 h-auto object-contain"
+              loading="lazy"
             />
           </div>
         </div>
@@ -34,13 +34,12 @@ export default function Gestalt() {
         {/* Core Principles Cards */}
         <div className="max-w-6xl mx-auto mb-6">
           <h3 className="text-3xl font-light text-slate-900 mb-6 text-center">Principii Fundamentale</h3>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {/* Card 1: Aici și Acum - Here and Now */}
             <div className="group relative overflow-hidden bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-700">
-              {/* Background image */}
               <div className="absolute inset-0 opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-700">
-                <img src="/here and now.png" alt="" className="w-full h-full object-cover grayscale" />
+                <img src="/here and now.png" alt="" className="w-full h-full object-cover grayscale" loading="lazy" />
               </div>
 
               <div className="relative z-10">
@@ -53,9 +52,8 @@ export default function Gestalt() {
 
             {/* Card 2: Conștientizare - Tree */}
             <div className="group relative overflow-hidden bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-700">
-              {/* Background image */}
               <div className="absolute inset-0 opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-700">
-                <img src="/tree.jpeg" alt="" className="w-full h-full object-cover grayscale" />
+                <img src="/tree.jpeg" alt="" className="w-full h-full object-cover grayscale" loading="lazy" />
               </div>
 
               <div className="relative z-10">
@@ -68,9 +66,8 @@ export default function Gestalt() {
 
             {/* Card 3: Întregul - Holistic */}
             <div className="group relative overflow-hidden bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-700">
-              {/* Background image */}
               <div className="absolute inset-0 opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-700">
-                <img src="/holistic.jpg" alt="" className="w-full h-full object-cover grayscale" />
+                <img src="/holistic.jpg" alt="" className="w-full h-full object-cover grayscale" loading="lazy" />
               </div>
 
               <div className="relative z-10">
@@ -86,12 +83,12 @@ export default function Gestalt() {
         {/* Why it works */}
         <div className="max-w-4xl mx-auto bg-white rounded-3xl p-10 sm:p-14 shadow-sm border border-sage-100">
           <h3 className="text-3xl font-light text-slate-900 mb-8">De ce să alegi terapia Gestalt?</h3>
-          
+
           <div className="space-y-6 text-slate-700 leading-relaxed">
             <p>
               Terapia Gestalt nu își propune să te "repare", pentru că nu ești stricat. Scopul ei este să te ajute să redevii întreg. Deseori, blocajele noastre vin din "gestalt-uri neterminate" — situații din trecut care nu au fost închise emoțional și care ne consumă energie în prezent.
             </p>
-            
+
             <ul className="space-y-4 my-8">
               <li className="flex items-start gap-3">
                 <span className="text-sage-500 mt-1">✓</span>
