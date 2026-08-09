@@ -23,12 +23,14 @@ A sleek, minimalist website for a professional psychology practice built with **
 vladcosa.ro/
 ├── src/
 │   ├── components/
+│   │   ├── Navigation.jsx     # Site navigation
 │   │   ├── Hero.jsx           # Landing hero section
 │   │   ├── About.jsx          # About & qualifications
+│   │   ├── Gestalt.jsx        # Gestalt therapy approach
 │   │   ├── Services.jsx       # Services offered
 │   │   ├── Contact.jsx        # Contact information
 │   │   └── Footer.jsx         # Footer with legal name
-│   ├── App.jsx                # Main app component
+│   ├── LandingPage.jsx        # Main single-page layout
 │   ├── main.jsx               # React entry point
 │   └── index.css              # Tailwind directives
 ├── Dockerfile                 # Multi-stage Docker build
@@ -42,11 +44,13 @@ vladcosa.ro/
 
 ## 🐳 Docker Deployment
 
+For an optional managed deployment, the repository also includes `amplify.yml` for AWS Amplify Hosting.
+
 ### Quick Start
 
 1. **Clone and configure**:
    ```bash
-   cd /home/popo5000/Websites/vladcosa.ro
+   cd path/to/vladcosa.ro
    cp .env.example .env
    # Edit .env with your details
    ```
@@ -62,7 +66,7 @@ vladcosa.ro/
 
 ### Portability Features
 
-✅ **No cloud-proprietary services** - Works on any Docker host  
+✅ **Cloud-agnostic Docker deployment** - Works on any Docker host, with optional AWS Amplify support
 ✅ **Standard environment variables** - Easy configuration via `.env`  
 ✅ **Volume mapping ready** - Uncomment database volumes if needed  
 ✅ **Move anywhere** - Copy folder to new server and run `docker-compose up`
@@ -92,8 +96,8 @@ Create a `.env` file based on `.env.example`:
 ```env
 VITE_SITE_NAME="Vlad Coșa - Psiholog"
 VITE_DOMAIN=vladcosa.ro
-VITE_EMAIL=contact@vladcosa.ro
-VITE_PHONE="+40 XXX XXX XXX"
+VITE_EMAIL=cosa.vlad@gmail.com
+VITE_PHONE="+40 748 133 913"
 ```
 
 ## 🌐 Production Setup with Reverse Proxy
@@ -176,7 +180,7 @@ The full legal name **"Coșa Vlad - Cabinet Individual de Psihologie"** is displ
 3. Update `.env` with production values
 4. Run: `docker-compose up -d --build`
 5. Configure your reverse proxy (Nginx Proxy Manager/Traefik)
-6. Done! No cloud dependencies, fully portable.
+6. Done! The Docker deployment remains portable across compatible hosts.
 
 ## 📄 License
 

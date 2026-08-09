@@ -39,7 +39,7 @@ export default function Gestalt() {
             {/* Card 1: Aici și Acum - Here and Now */}
             <div className="group relative overflow-hidden bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-700">
               <div className="absolute inset-0 opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-700">
-                <img src="/here and now.png" alt="" className="w-full h-full object-cover grayscale" loading="lazy" />
+                <img src="/here-and-now.png" alt="" className="w-full h-full object-cover grayscale" loading="lazy" />
               </div>
 
               <div className="relative z-10">
