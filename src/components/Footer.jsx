@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function Footer() {
   const currentYear = new Date().getFullYear()
   
@@ -19,19 +21,19 @@ export default function Footer() {
             <h4 className="text-sm uppercase tracking-wider text-cream-200/60">Navigare Rapidă</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#about" className="text-cream-100/80 hover:text-cream-50 transition-colors">
+                <Link to="/#about" className="text-cream-100/80 hover:text-cream-50 transition-colors">
                   Despre
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="text-cream-100/80 hover:text-cream-50 transition-colors">
+                <Link to="/#services" className="text-cream-100/80 hover:text-cream-50 transition-colors">
                   Servicii
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="text-cream-100/80 hover:text-cream-50 transition-colors">
+                <Link to="/#contact" className="text-cream-100/80 hover:text-cream-50 transition-colors">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -42,14 +44,14 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-cream-100/80">
               <li>Membru al Colegiului Psihologilor din România</li>
               <li>
-                <a href="#politica-de-confidentialitate" className="hover:text-cream-50 transition-colors">
+                <Link to="/#politica-de-confidentialitate" className="hover:text-cream-50 transition-colors">
                   Politica de Confidențialitate
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#termeni-si-conditii" className="hover:text-cream-50 transition-colors">
+                <Link to="/#termeni-si-conditii" className="hover:text-cream-50 transition-colors">
                   Termeni și Condiții
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

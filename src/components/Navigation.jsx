@@ -1,15 +1,28 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const sections = ['hero', 'about', 'gestalt', 'services', 'contact']
+const navLinks = [
+  { id: 'about', label: 'Despre' },
+  { id: 'gestalt', label: 'Metodă' },
+  { id: 'services', label: 'Servicii' },
+  { id: 'contact', label: 'Contact' },
+  { to: '/blog', label: 'Blog' },
+]
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const menuRef = useRef(null)
   const menuButtonRef = useRef(null)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const isBlogRoute = location.pathname.startsWith('/blog')
 
   // Track active section with IntersectionObserver
   useEffect(() => {
+    if (location.pathname !== '/') return undefined
+
     const observers = []
 
     sections.forEach((id) => {
@@ -29,7 +42,7 @@ export default function Navigation() {
     })
 
     return () => observers.forEach((obs) => obs.disconnect())
-  }, [])
+  }, [location.pathname])
 
   // Close mobile menu on Escape
   useEffect(() => {
@@ -79,33 +92,43 @@ export default function Navigation() {
     return () => menu.removeEventListener('keydown', trapFocus)
   }, [isOpen])
 
-  const handleNavClick = useCallback((hash) => {
-    setIsOpen(false)
-    const element = document.querySelector(hash)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [])
+  const handleNavClick = useCallback(
+    (section) => {
+      setIsOpen(false)
+      const hash = `#${section}`
 
-  const getLinkClass = (section) => {
-    const baseClass = "text-slate-700 hover:text-sage-700 transition-colors font-medium"
-    const activeClass = "text-sage-700 border-b-2 border-sage-700"
-    return activeSection === section ? `${baseClass} ${activeClass}` : baseClass
+      if (location.pathname !== '/') {
+        navigate({ pathname: '/', hash })
+        return
+      }
+
+      const element = document.querySelector(hash)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    },
+    [location.pathname, navigate],
+  )
+
+  const getLinkClass = (isActive) => {
+    const baseClass = 'text-slate-700 hover:text-sage-700 transition-colors font-medium'
+    const activeClass = 'text-sage-700 border-b-2 border-sage-700'
+    return isActive ? `${baseClass} ${activeClass}` : baseClass
   }
-
-  const navLinks = [
-    { id: 'about', label: 'Despre' },
-    { id: 'gestalt', label: 'Metodă' },
-    { id: 'services', label: 'Servicii' },
-    { id: 'contact', label: 'Contact' },
-  ]
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-cream-50/80 backdrop-blur-md border-b border-sage-100/50">
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo/Brand */}
-          <a href="#hero" onClick={(e) => { e.preventDefault(); handleNavClick('#hero') }} className="flex items-center gap-3 group cursor-pointer">
+          <a
+            href="/#hero"
+            onClick={(event) => {
+              event.preventDefault()
+              handleNavClick('hero')
+            }}
+            className="flex items-center gap-3 group cursor-pointer"
+          >
             <img src="/logo.png" alt="Logo" className="h-12 w-auto opacity-80 group-hover:opacity-100 transition-opacity" width="698" height="274" />
             <div className="flex flex-col">
               <span className="text-xl font-serif text-slate-900 group-hover:text-sage-700 transition-colors leading-tight">
@@ -119,18 +142,45 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-10">
-            {navLinks.map(({ id, label }) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                onClick={(e) => { e.preventDefault(); handleNavClick(`#${id}`) }}
-                className={getLinkClass(id)}
-                {...(activeSection === id ? { 'aria-current': 'true' } : {})}
-              >
-                {label}
-              </a>
-            ))}
-            <a href="#contact" onClick={(e) => { e.preventDefault(); handleNavClick('#contact') }} className="btn-primary !py-2 !px-6 text-sm">
+            {navLinks.map(({ id, label, to }) => {
+              if (to) {
+                return (
+                  <Link
+                    key={to}
+                    to={to}
+                    className={getLinkClass(isBlogRoute)}
+                    aria-current={isBlogRoute ? 'page' : undefined}
+                  >
+                    {label}
+                  </Link>
+                )
+              }
+
+              const isActive = location.pathname === '/' && activeSection === id
+
+              return (
+                <a
+                  key={id}
+                  href={`/#${id}`}
+                  onClick={(event) => {
+                    event.preventDefault()
+                    handleNavClick(id)
+                  }}
+                  className={getLinkClass(isActive)}
+                  aria-current={isActive ? 'location' : undefined}
+                >
+                  {label}
+                </a>
+              )
+            })}
+            <a
+              href="/#contact"
+              onClick={(event) => {
+                event.preventDefault()
+                handleNavClick('contact')
+              }}
+              className="btn-primary !py-2 !px-6 text-sm"
+            >
               Programează
             </a>
           </div>
@@ -165,21 +215,49 @@ export default function Navigation() {
           }`}
         >
           <div className="py-4 space-y-4 border-t border-sage-100">
-            {navLinks.map(({ id, label }) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                className="block py-2 text-slate-700 hover:text-sage-700 transition-colors font-medium"
-                onClick={(e) => { e.preventDefault(); handleNavClick(`#${id}`) }}
-                {...(activeSection === id ? { 'aria-current': 'true' } : {})}
-              >
-                {label}
-              </a>
-            ))}
+            {navLinks.map(({ id, label, to }) => {
+              if (to) {
+                return (
+                  <Link
+                    key={to}
+                    to={to}
+                    className={`block py-2 text-slate-700 hover:text-sage-700 transition-colors font-medium ${
+                      isBlogRoute ? 'text-sage-700' : ''
+                    }`}
+                    aria-current={isBlogRoute ? 'page' : undefined}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {label}
+                  </Link>
+                )
+              }
+
+              const isActive = location.pathname === '/' && activeSection === id
+
+              return (
+                <a
+                  key={id}
+                  href={`/#${id}`}
+                  className={`block py-2 text-slate-700 hover:text-sage-700 transition-colors font-medium ${
+                    isActive ? 'text-sage-700' : ''
+                  }`}
+                  onClick={(event) => {
+                    event.preventDefault()
+                    handleNavClick(id)
+                  }}
+                  aria-current={isActive ? 'location' : undefined}
+                >
+                  {label}
+                </a>
+              )
+            })}
             <a
-              href="#contact"
+              href="/#contact"
               className="btn-primary !py-2 !px-6 text-sm inline-block"
-              onClick={(e) => { e.preventDefault(); handleNavClick('#contact') }}
+              onClick={(event) => {
+                event.preventDefault()
+                handleNavClick('contact')
+              }}
             >
               Programează
             </a>
