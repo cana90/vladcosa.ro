@@ -106,7 +106,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-20">
           {/* Logo/Brand */}
           <a href="#hero" onClick={(e) => { e.preventDefault(); handleNavClick('#hero') }} className="flex items-center gap-3 group cursor-pointer">
-            <img src="/logo.png" alt="Logo" className="h-12 w-auto opacity-80 group-hover:opacity-100 transition-opacity" />
+            <img src="/logo.png" alt="Logo" className="h-12 w-auto opacity-80 group-hover:opacity-100 transition-opacity" width="698" height="274" />
             <div className="flex flex-col">
               <span className="text-xl font-serif text-slate-900 group-hover:text-sage-700 transition-colors leading-tight">
                 Vlad Coșa
@@ -163,7 +163,6 @@ export default function Navigation() {
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
             isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
-          role="menu"
         >
           <div className="py-4 space-y-4 border-t border-sage-100">
             {navLinks.map(({ id, label }) => (
@@ -172,7 +171,6 @@ export default function Navigation() {
                 href={`#${id}`}
                 className="block py-2 text-slate-700 hover:text-sage-700 transition-colors font-medium"
                 onClick={(e) => { e.preventDefault(); handleNavClick(`#${id}`) }}
-                role="menuitem"
                 {...(activeSection === id ? { 'aria-current': 'true' } : {})}
               >
                 {label}
@@ -182,7 +180,6 @@ export default function Navigation() {
               href="#contact"
               className="btn-primary !py-2 !px-6 text-sm inline-block"
               onClick={(e) => { e.preventDefault(); handleNavClick('#contact') }}
-              role="menuitem"
             >
               Programează
             </a>

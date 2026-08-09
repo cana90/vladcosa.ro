@@ -6,7 +6,7 @@ function LegalLayout({ title, updatedAt, children }) {
       <header className="border-b border-sage-100 bg-cream-50">
         <div className="container-custom h-20 flex items-center justify-between gap-6">
           <a href="#hero" className="flex items-center gap-3 group">
-            <img src="/logo.png" alt="Logo Vlad Coșa" className="h-12 w-auto opacity-80 group-hover:opacity-100 transition-opacity" />
+            <img src="/logo.png" alt="Logo Vlad Coșa" className="h-12 w-auto opacity-80 group-hover:opacity-100 transition-opacity" width="698" height="274" />
             <span className="text-xl text-slate-900 group-hover:text-sage-700 transition-colors">Vlad Coșa</span>
           </a>
           <a href="#hero" className="text-sage-700 hover:text-sage-800 transition-colors">

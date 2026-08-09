@@ -13,12 +13,13 @@ function hasStoredMapsConsent() {
 
 export default function Contact() {
   const [currentImage, setCurrentImage] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [isManuallyPaused, setIsManuallyPaused] = useState(false)
+  const [isCarouselHovered, setIsCarouselHovered] = useState(false)
+  const [hasCarouselFocus, setHasCarouselFocus] = useState(false)
   const [hasMapsConsent, setHasMapsConsent] = useState(hasStoredMapsConsent)
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
   const carouselRef = useRef(null)
-  const autoPlayRef = useRef(null)
 
   const email = env.VITE_EMAIL || 'cosa.vlad@gmail.com'
   const phone = env.VITE_PHONE || '+40 748 133 913'
@@ -35,26 +36,35 @@ export default function Contact() {
     '/cabinet3.jpg'
   ]
 
-  const goTo = useCallback((index) => {
-    setCurrentImage(index)
-    setIsAutoPlaying(false)
+  const navigateByUser = useCallback((getNextIndex) => {
+    setIsManuallyPaused(true)
+    setCurrentImage((current) => getNextIndex(current))
   }, [])
 
-  const nextImage = useCallback(() => {
+  const advanceImage = useCallback(() => {
     setCurrentImage((prev) => (prev + 1) % officeImages.length)
   }, [officeImages.length])
 
-  const prevImage = useCallback(() => {
-    setCurrentImage((prev) => (prev - 1 + officeImages.length) % officeImages.length)
-    setIsAutoPlaying(false)
-  }, [officeImages.length])
+  const goTo = useCallback((index) => {
+    navigateByUser(() => index)
+  }, [navigateByUser])
+
+  const showNextImage = useCallback(() => {
+    navigateByUser((current) => (current + 1) % officeImages.length)
+  }, [navigateByUser, officeImages.length])
+
+  const showPreviousImage = useCallback(() => {
+    navigateByUser((current) => (current - 1 + officeImages.length) % officeImages.length)
+  }, [navigateByUser, officeImages.length])
+
+  const isAutoPlaying = !isManuallyPaused && !isCarouselHovered && !hasCarouselFocus
 
   // Auto-advance carousel
   useEffect(() => {
     if (!isAutoPlaying) return
-    autoPlayRef.current = setInterval(nextImage, 5000)
-    return () => clearInterval(autoPlayRef.current)
-  }, [isAutoPlaying, nextImage])
+    const intervalId = setInterval(advanceImage, 5000)
+    return () => clearInterval(intervalId)
+  }, [isAutoPlaying, advanceImage])
 
   // Touch/swipe handling
   const handleTouchStart = (e) => {
@@ -70,11 +80,10 @@ export default function Contact() {
     const minSwipe = 50
     if (Math.abs(delta) < minSwipe) return
 
-    setIsAutoPlaying(false)
     if (delta > 0) {
-      nextImage()
+      showNextImage()
     } else {
-      prevImage()
+      showPreviousImage()
     }
   }
 
@@ -82,11 +91,16 @@ export default function Contact() {
   const handleCarouselKeyDown = (e) => {
     if (e.key === 'ArrowLeft') {
       e.preventDefault()
-      prevImage()
+      showPreviousImage()
     } else if (e.key === 'ArrowRight') {
       e.preventDefault()
-      nextImage()
-      setIsAutoPlaying(false)
+      showNextImage()
+    }
+  }
+
+  const handleCarouselBlur = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setHasCarouselFocus(false)
     }
   }
 
@@ -225,6 +239,11 @@ export default function Contact() {
               role="region"
               aria-label="Fotografii cabinet"
               aria-roledescription="carousel"
+              aria-live="polite"
+              onMouseEnter={() => setIsCarouselHovered(true)}
+              onMouseLeave={() => setIsCarouselHovered(false)}
+              onFocusCapture={() => setHasCarouselFocus(true)}
+              onBlurCapture={handleCarouselBlur}
             >
               <div
                 className="relative rounded-xl overflow-hidden aspect-[4/3] shadow-sm"
@@ -237,18 +256,35 @@ export default function Contact() {
                   alt={`Cabinetul meu - fotografia ${currentImage + 1} din ${officeImages.length}`}
                   className="w-full h-full object-cover"
                   loading="lazy"
-                  aria-live="polite"
+                  width="1600"
+                  height="1200"
                 />
 
                 <div className="absolute inset-x-0 bottom-0 p-4 flex justify-between items-center bg-gradient-to-t from-black/50 to-transparent">
                   <span className="text-white/90 text-sm font-medium">Cabinetul meu</span>
                   <div className="flex gap-2">
-                    <button onClick={(e) => {e.stopPropagation(); prevImage()}} className="text-white hover:text-sage-200 transition-colors" aria-label="Fotografia anterioară">
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); setIsManuallyPaused((paused) => !paused) }}
+                      className="text-white hover:text-sage-200 transition-colors"
+                      aria-label={isManuallyPaused ? 'Pornește derularea automată' : 'Oprește derularea automată'}
+                    >
+                      {isManuallyPaused ? (
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5v14l11-7L8 5z" />
+                        </svg>
+                      ) : (
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5v14m6-14v14" />
+                        </svg>
+                      )}
+                    </button>
+                    <button type="button" onClick={(e) => { e.stopPropagation(); showPreviousImage() }} className="text-white hover:text-sage-200 transition-colors" aria-label="Fotografia anterioară">
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                       </svg>
                     </button>
-                    <button onClick={(e) => {e.stopPropagation(); nextImage(); setIsAutoPlaying(false)}} className="text-white hover:text-sage-200 transition-colors" aria-label="Fotografia următoare">
+                    <button type="button" onClick={(e) => { e.stopPropagation(); showNextImage() }} className="text-white hover:text-sage-200 transition-colors" aria-label="Fotografia următoare">
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
@@ -261,6 +297,7 @@ export default function Contact() {
                   {officeImages.map((_, index) => (
                     <button
                       key={index}
+                      type="button"
                       onClick={() => goTo(index)}
                       className={`w-2 h-2 rounded-full transition-all ${
                         index === currentImage ? 'bg-white w-6' : 'bg-white/50'

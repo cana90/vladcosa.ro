@@ -27,6 +27,8 @@ export default function Gestalt() {
               alt=""
               className="w-2/3 h-auto object-contain"
               loading="lazy"
+              width="1024"
+              height="825"
             />
           </div>
         </div>
@@ -39,7 +41,7 @@ export default function Gestalt() {
             {/* Card 1: Aici și Acum - Here and Now */}
             <div className="group relative overflow-hidden bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-700">
               <div className="absolute inset-0 opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-700">
-                <img src="/here-and-now.png" alt="" className="w-full h-full object-cover grayscale" loading="lazy" />
+                <img src="/here-and-now.png" alt="" className="w-full h-full object-cover grayscale" loading="lazy" width="586" height="395" />
               </div>
 
               <div className="relative z-10">
@@ -53,7 +55,7 @@ export default function Gestalt() {
             {/* Card 2: Conștientizare - Tree */}
             <div className="group relative overflow-hidden bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-700">
               <div className="absolute inset-0 opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-700">
-                <img src="/tree.jpeg" alt="" className="w-full h-full object-cover grayscale" loading="lazy" />
+                <img src="/tree.jpeg" alt="" className="w-full h-full object-cover grayscale" loading="lazy" width="736" height="584" />
               </div>
 
               <div className="relative z-10">
@@ -67,7 +69,7 @@ export default function Gestalt() {
             {/* Card 3: Întregul - Holistic */}
             <div className="group relative overflow-hidden bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-700">
               <div className="absolute inset-0 opacity-[0.05] group-hover:opacity-[0.12] transition-opacity duration-700">
-                <img src="/holistic.jpg" alt="" className="w-full h-full object-cover grayscale" loading="lazy" />
+                <img src="/holistic.jpg" alt="" className="w-full h-full object-cover grayscale" loading="lazy" width="450" height="398" />
               </div>
 
               <div className="relative z-10">

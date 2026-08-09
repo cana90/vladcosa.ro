@@ -50,6 +50,8 @@ export default function Hero() {
                 src="/vlad-profile.jpg" 
                 alt="Vlad Coșa - Psiholog"
                 className="w-full max-w-sm aspect-[3/4] object-cover rounded-xl shadow-2xl"
+                width="1341"
+                height="1341"
               />
               {/* Decorative Element */}
               <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-sage-100 rounded-xl -z-10 opacity-30"></div>
