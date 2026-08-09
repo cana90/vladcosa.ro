@@ -17,7 +17,7 @@ export default function Gestalt() {
               Gestalt terapia este o abordare optimistă, care crede în capacitatea intrinsecă a omului de a se vindeca și de a crește.
             </p>
             <p>
-              Este o formă de psihoterapie umanistă care se concentrează pe experiența de "aici și acum", punând accent pe conștientizarea momentului prezent, a corpului și a emoțiilor, nu doar a gândurilor.
+              Este o formă de psihoterapie umanistă care se concentrează pe experiența de &quot;aici și acum&quot;, punând accent pe conștientizarea momentului prezent, a corpului și a emoțiilor, nu doar a gândurilor.
             </p>
           </div>
 
@@ -88,7 +88,7 @@ export default function Gestalt() {
 
           <div className="space-y-6 text-slate-700 leading-relaxed">
             <p>
-              Terapia Gestalt nu își propune să te "repare", pentru că nu ești stricat. Scopul ei este să te ajute să redevii întreg. Deseori, blocajele noastre vin din "gestalt-uri neterminate" — situații din trecut care nu au fost închise emoțional și care ne consumă energie în prezent.
+              Terapia Gestalt nu își propune să te &quot;repare&quot;, pentru că nu ești stricat. Scopul ei este să te ajute să redevii întreg. Deseori, blocajele noastre vin din &quot;gestalt-uri neterminate&quot; — situații din trecut care nu au fost închise emoțional și care ne consumă energie în prezent.
             </p>
 
             <ul className="space-y-4 my-8">

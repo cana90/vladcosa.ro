@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 
+const sections = ['hero', 'about', 'gestalt', 'services', 'contact']
+
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
   const menuRef = useRef(null)
   const menuButtonRef = useRef(null)
-
-  const sections = ['hero', 'about', 'gestalt', 'services', 'contact']
 
   // Track active section with IntersectionObserver
   useEffect(() => {

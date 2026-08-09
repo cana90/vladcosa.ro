@@ -234,8 +234,6 @@ export default function Contact() {
             <div
               className="bg-sage-50 p-2 rounded-2xl"
               ref={carouselRef}
-              onKeyDown={handleCarouselKeyDown}
-              tabIndex={0}
               role="region"
               aria-label="Fotografii cabinet"
               aria-roledescription="carousel"
@@ -266,6 +264,7 @@ export default function Contact() {
                     <button
                       type="button"
                       onClick={(e) => { e.stopPropagation(); setIsManuallyPaused((paused) => !paused) }}
+                      onKeyDown={handleCarouselKeyDown}
                       className="text-white hover:text-sage-200 transition-colors"
                       aria-label={isManuallyPaused ? 'Pornește derularea automată' : 'Oprește derularea automată'}
                     >
@@ -279,12 +278,12 @@ export default function Contact() {
                         </svg>
                       )}
                     </button>
-                    <button type="button" onClick={(e) => { e.stopPropagation(); showPreviousImage() }} className="text-white hover:text-sage-200 transition-colors" aria-label="Fotografia anterioară">
+                    <button type="button" onClick={(e) => { e.stopPropagation(); showPreviousImage() }} onKeyDown={handleCarouselKeyDown} className="text-white hover:text-sage-200 transition-colors" aria-label="Fotografia anterioară">
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                       </svg>
                     </button>
-                    <button type="button" onClick={(e) => { e.stopPropagation(); showNextImage() }} className="text-white hover:text-sage-200 transition-colors" aria-label="Fotografia următoare">
+                    <button type="button" onClick={(e) => { e.stopPropagation(); showNextImage() }} onKeyDown={handleCarouselKeyDown} className="text-white hover:text-sage-200 transition-colors" aria-label="Fotografia următoare">
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
@@ -299,6 +298,7 @@ export default function Contact() {
                       key={index}
                       type="button"
                       onClick={() => goTo(index)}
+                      onKeyDown={handleCarouselKeyDown}
                       className={`w-2 h-2 rounded-full transition-all ${
                         index === currentImage ? 'bg-white w-6' : 'bg-white/50'
                       }`}
