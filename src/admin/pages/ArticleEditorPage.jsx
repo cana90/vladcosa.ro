@@ -15,6 +15,64 @@ const emptyArticle = {
 }
 
 const maxCoverImageSize = 4 * 1024 * 1024
+const draftStoragePrefix = 'vladcosa-admin-article-draft:'
+
+function getDraftStorageKey(articleId) {
+  return `${draftStoragePrefix}${articleId || 'new'}`
+}
+
+function readStoredDraft(storageKey) {
+  try {
+    const storedValue = window.localStorage.getItem(storageKey)
+    if (!storedValue) return null
+
+    const draft = JSON.parse(storedValue)
+    const hasValidTextFields = ['title', 'excerpt', 'content_md'].every(
+      (field) => typeof draft?.[field] === 'string',
+    )
+    const hasValidCoverImage =
+      draft?.cover_image === null || typeof draft?.cover_image === 'string'
+
+    if (!hasValidTextFields || !hasValidCoverImage) {
+      clearStoredDraft(storageKey)
+      return null
+    }
+
+    return {
+      title: draft.title,
+      excerpt: draft.excerpt,
+      content_md: draft.content_md,
+      cover_image: draft.cover_image,
+    }
+  } catch {
+    clearStoredDraft(storageKey)
+    return null
+  }
+}
+
+function persistStoredDraft(storageKey, article) {
+  try {
+    window.localStorage.setItem(
+      storageKey,
+      JSON.stringify({
+        title: article.title,
+        excerpt: article.excerpt,
+        content_md: article.content_md,
+        cover_image: article.cover_image,
+      }),
+    )
+  } catch {
+    // The session still expires if browser storage is unavailable.
+  }
+}
+
+function clearStoredDraft(storageKey) {
+  try {
+    window.localStorage.removeItem(storageKey)
+  } catch {
+    // Browser storage may be unavailable in restricted browsing modes.
+  }
+}
 
 function toEditorArticle(article) {
   return {
@@ -28,6 +86,7 @@ function toEditorArticle(article) {
 
 function ArticleEditor({ articleId }) {
   const isEditing = Boolean(articleId)
+  const draftStorageKey = getDraftStorageKey(articleId)
   const navigate = useNavigate()
   const fileInputRef = useRef(null)
   const { expireSession } = useAuth()
@@ -39,6 +98,9 @@ function ArticleEditor({ articleId }) {
   const [isUploading, setIsUploading] = useState(false)
   const [error, setError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
+  const [recoveryDraft, setRecoveryDraft] = useState(() =>
+    readStoredDraft(draftStorageKey),
+  )
   const hasUnsavedChanges =
     JSON.stringify(article) !== JSON.stringify(savedArticle)
 
@@ -173,6 +235,7 @@ function ArticleEditor({ articleId }) {
       })
 
       if (response.status === 401) {
+        persistStoredDraft(draftStorageKey, article)
         expireSession()
         return
       }
@@ -224,6 +287,7 @@ function ArticleEditor({ articleId }) {
       )
 
       if (response.status === 401) {
+        persistStoredDraft(draftStorageKey, article)
         expireSession()
         return
       }
@@ -236,6 +300,8 @@ function ArticleEditor({ articleId }) {
 
       const data = await response.json()
       const editorArticle = toEditorArticle(data.article)
+      clearStoredDraft(draftStorageKey)
+      setRecoveryDraft(null)
       setArticle(editorArticle)
       setSavedArticle(editorArticle)
       setSavedRecord(data.article)
@@ -257,6 +323,22 @@ function ArticleEditor({ articleId }) {
     } finally {
       setIsSaving(false)
     }
+  }
+
+  const restoreDraft = () => {
+    if (!recoveryDraft) return
+    setArticle((currentArticle) => ({
+      ...currentArticle,
+      ...recoveryDraft,
+    }))
+    setRecoveryDraft(null)
+    setError('')
+    setSuccessMessage('Modificările nesalvate au fost restaurate.')
+  }
+
+  const discardDraft = () => {
+    clearStoredDraft(draftStorageKey)
+    setRecoveryDraft(null)
   }
 
   if (isLoading) {
@@ -340,6 +422,34 @@ function ArticleEditor({ articleId }) {
             </button>
           </div>
         </div>
+
+        {recoveryDraft && (
+          <div
+            className="mt-8 flex flex-col gap-4 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-900 sm:flex-row sm:items-center sm:justify-between"
+            role="status"
+          >
+            <p>
+              Există modificări nesalvate dintr-o sesiune anterioară. Vrei să le
+              restaurezi?
+            </p>
+            <div className="flex shrink-0 flex-wrap gap-3">
+              <button
+                type="button"
+                className="rounded-full bg-sage-700 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-sage-800 focus:outline-none focus:ring-2 focus:ring-sage-500 focus:ring-offset-2"
+                onClick={restoreDraft}
+              >
+                Restaurează
+              </button>
+              <button
+                type="button"
+                className="rounded-full border border-amber-300 px-4 py-2 text-sm font-medium text-amber-900 transition-colors hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
+                onClick={discardDraft}
+              >
+                Renunță
+              </button>
+            </div>
+          </div>
+        )}
 
         {error && (
           <p
