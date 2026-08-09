@@ -1,10 +1,20 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 
 const env = import.meta.env
+const mapsConsentKey = 'vladcosa-google-maps-consent'
+
+function hasStoredMapsConsent() {
+  try {
+    return window.localStorage.getItem(mapsConsentKey) === 'granted'
+  } catch {
+    return false
+  }
+}
 
 export default function Contact() {
   const [currentImage, setCurrentImage] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [hasMapsConsent, setHasMapsConsent] = useState(hasStoredMapsConsent)
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
   const carouselRef = useRef(null)
@@ -78,6 +88,24 @@ export default function Contact() {
       nextImage()
       setIsAutoPlaying(false)
     }
+  }
+
+  const handleLoadMap = () => {
+    try {
+      window.localStorage.setItem(mapsConsentKey, 'granted')
+    } catch {
+      // Harta poate fi încărcată pentru sesiunea curentă chiar dacă stocarea este blocată.
+    }
+    setHasMapsConsent(true)
+  }
+
+  const handleHideMap = () => {
+    try {
+      window.localStorage.removeItem(mapsConsentKey)
+    } catch {
+      // Starea curentă rămâne controlată local dacă stocarea este blocată.
+    }
+    setHasMapsConsent(false)
   }
 
   return (
@@ -246,18 +274,44 @@ export default function Contact() {
             </div>
 
             {/* Map */}
-            <div className="aspect-square lg:aspect-[4/3] bg-gradient-to-br from-sage-100 to-slate-100 rounded-xl shadow-lg overflow-hidden">
-              <iframe
-                src={mapsUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Locația cabinetului"
-              ></iframe>
-            </div>
+            {hasMapsConsent ? (
+              <div className="space-y-3">
+                <div className="aspect-square lg:aspect-[4/3] bg-gradient-to-br from-sage-100 to-slate-100 rounded-xl shadow-lg overflow-hidden">
+                  <iframe
+                    src={mapsUrl}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Locația cabinetului pe Google Maps"
+                  ></iframe>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleHideMap}
+                  className="text-sm text-sage-700 underline underline-offset-4 hover:text-sage-800 transition-colors"
+                >
+                  Retrage acordul și ascunde harta
+                </button>
+              </div>
+            ) : (
+              <div
+                className="aspect-square lg:aspect-[4/3] bg-gradient-to-br from-sage-100 to-slate-100 rounded-xl shadow-lg p-8 flex flex-col items-center justify-center text-center"
+                role="region"
+                aria-label="Locația cabinetului"
+              >
+                <h3 className="text-2xl text-slate-900 mb-3">Locația cabinetului</h3>
+                <p className="text-slate-700 mb-5">{address}</p>
+                <p className="max-w-md text-sm text-slate-600 leading-relaxed mb-6">
+                  Harta este furnizată de Google. Dacă alegi să o încarci, adresa IP și informații despre browserul tău pot fi transmise către Google.
+                </p>
+                <button type="button" onClick={handleLoadMap} className="btn-secondary">
+                  Încarcă harta Google
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

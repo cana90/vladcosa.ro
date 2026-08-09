@@ -31,6 +31,7 @@ vladcosa.ro/
 │   │   ├── Contact.jsx        # Contact information
 │   │   └── Footer.jsx         # Footer with legal name
 │   ├── LandingPage.jsx        # Main single-page layout
+│   ├── LegalPages.jsx         # Hash-based privacy and terms views
 │   ├── main.jsx               # React entry point
 │   └── index.css              # Tailwind directives
 ├── Dockerfile                 # Multi-stage Docker build
@@ -158,9 +159,9 @@ colors: {
 
 ### Typography
 
-Google Fonts are loaded in [index.html](index.html):
-- **Crimson Pro** (Serif) - Headings
-- **Inter** (Sans-serif) - Body text
+Fonts are bundled locally through Fontsource imports in [src/main.jsx](src/main.jsx):
+- **Crimson Pro** (Serif, weights 300/400/600) - Headings
+- **Inter** (Sans-serif, weights 300/400/500) - Body text
 
 ### Content
 

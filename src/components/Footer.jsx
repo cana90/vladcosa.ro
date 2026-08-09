@@ -42,12 +42,12 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-cream-100/80">
               <li>Membru al Colegiului Psihologilor din România</li>
               <li>
-                <a href="#" className="hover:text-cream-50 transition-colors">
+                <a href="#politica-de-confidentialitate" className="hover:text-cream-50 transition-colors">
                   Politica de Confidențialitate
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-cream-50 transition-colors">
+                <a href="#termeni-si-conditii" className="hover:text-cream-50 transition-colors">
                   Termeni și Condiții
                 </a>
               </li>
