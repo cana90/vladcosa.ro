@@ -39,4 +39,16 @@ export default [
       'react/prop-types': 'off',
     },
   },
+  {
+    files: ['netlify/functions/**/*.js', 'scripts/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: globals.node,
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    },
+  },
 ]

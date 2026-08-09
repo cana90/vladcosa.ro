@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { config } from '../config.js'
+import { config } from './config.js'
 
 const cookieBaseOptions = Object.freeze({
   httpOnly: true,
@@ -29,7 +29,9 @@ export function requireAuth(req, res, next) {
   }
 
   try {
-    const payload = jwt.verify(token, config.sessionSecret, { algorithms: ['HS256'] })
+    const payload = jwt.verify(token, config.sessionSecret, {
+      algorithms: ['HS256'],
+    })
     if (payload.sub !== config.adminUsername) {
       throw new Error('Utilizator invalid')
     }
@@ -37,6 +39,8 @@ export function requireAuth(req, res, next) {
     return next()
   } catch {
     res.clearCookie(config.sessionCookieName, clearSessionCookieOptions)
-    return res.status(401).json({ error: 'Sesiunea nu este validă sau a expirat.' })
+    return res
+      .status(401)
+      .json({ error: 'Sesiunea nu este validă sau a expirat.' })
   }
 }

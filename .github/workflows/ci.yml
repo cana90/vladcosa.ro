@@ -23,8 +23,8 @@ jobs:
       - name: Instalează dependențele
         run: npm ci
 
-      - name: Verifică linting-ul
+      - name: Verifică frontend-ul și funcțiile Netlify
         run: npm run lint
 
-      - name: Construiește proiectul
+      - name: Construiește proiectul din rădăcină
         run: npm run build

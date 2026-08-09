@@ -1,177 +1,152 @@
 # Vlad Coșa - Cabinet Individual de Psihologie
 
-A minimalist website and blog for a psychology practice, with a React frontend, an Express API, and SQLite persistence.
+A minimalist React website and blog for a psychology practice, deployed on Netlify with serverless API functions and managed storage.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    visitor["Visitor / administrator"] --> proxy["Traefik or host port 3000"]
-    proxy --> web["vladcosa-web<br/>nginx + React SPA"]
-    web -->|"/api/* and /uploads/*"| api["vladcosa-api<br/>Express on port 4000"]
-    api --> volume[("blog-data volume<br/>SQLite DB + uploaded images")]
+    visitor["Visitor or administrator"] --> netlify["Netlify"]
+    netlify --> spa["Static React SPA"]
+    netlify -->|"/api/*"| api["Express API function"]
+    netlify -->|"/uploads/*"| uploads["Upload-serving function"]
+    api --> turso[("Turso database")]
+    api --> blobs[("Netlify Blobs")]
+    uploads --> blobs
 ```
 
-Only `vladcosa-web` publishes a host port. `vladcosa-api` is reachable exclusively from the private `vladcosa-network` bridge network. Nginx serves the SPA and forwards API and upload requests to the API container.
+- Netlify serves the Vite build from `dist/` and applies the SPA fallback from `netlify.toml`.
+- The Express function in `netlify/functions/api.js` handles authentication and article CRUD.
+- Turso stores article data, database migrations, and persistent login-attempt records.
+- Netlify Blobs stores article cover images in the `uploads` store.
+- `netlify/functions/uploads.js` serves stored images through the same-origin `/uploads/*` path.
 
 ## Tech Stack
 
-- **Frontend:** React 18, React Router, Vite
-- **Styling:** Tailwind CSS, Crimson Pro, Inter
-- **Blog rendering:** React Markdown with sanitized HTML output
-- **Backend:** Node.js 20, Express
-- **Storage:** SQLite through `better-sqlite3`
-- **Web server:** nginx Alpine
-- **Deployment:** Docker Compose, with Traefik labels and optional AWS Amplify frontend configuration
+- React 18, React Router, and Vite
+- Tailwind CSS with locally bundled Crimson Pro and Inter fonts
+- React Markdown with sanitized HTML output
+- Express on Netlify Functions
+- Turso through the pure web build of `@libsql/client`
+- Netlify Blobs for uploaded images
+- Signed JWT session cookies for the single administrator account
 
 ## Project Structure
 
 ```text
 vladcosa.ro/
+├── netlify/
+│   └── functions/
+│       ├── _lib/                  # Database, auth, errors, and Blob helpers
+│       ├── api.js                 # Express API function
+│       └── uploads.js             # Uploaded-image serving function
+├── scripts/
+│   └── hash-password.js           # Administrator password-hash helper
 ├── src/
-│   ├── admin/                 # Lazy-loaded blog administration UI
-│   ├── components/            # Shared and landing-page components
-│   ├── pages/                 # Public blog and 404 pages
-│   ├── LandingPage.jsx        # Main landing page
-│   ├── LegalPages.jsx         # Privacy and terms views
-│   └── main.jsx               # React entry point and routes
-├── server/
-│   ├── src/                   # Express API, routes, database, middleware
-│   ├── scripts/               # Password-hash helper
-│   ├── Dockerfile             # API image
-│   └── README.md              # API endpoint reference
-├── Dockerfile                 # Frontend build and nginx image
-├── docker-compose.yml         # Complete production stack
-├── nginx.conf                 # SPA serving and API reverse proxy
-└── .env.example               # Frontend and API environment template
+│   ├── admin/                     # Lazy-loaded blog administration UI
+│   ├── components/                # Shared and landing-page components
+│   ├── pages/                     # Public blog and 404 pages
+│   ├── LandingPage.jsx            # Main landing page
+│   ├── LegalPages.jsx             # Privacy and terms views
+│   └── main.jsx                   # React entry point and routes
+├── netlify.toml                   # Build, function, and redirect configuration
+└── .env.example                   # Local environment template
 ```
 
-## Docker Deployment
+## Initial Blog Setup
 
-### 1. Configure the environment
+### 1. Install the tools and dependencies
 
-Copy the combined environment template:
-
-```bash
-cp .env.example .env
-```
-
-Generate the administrator password hash from the API directory:
+Use Node.js 20 or newer. Install the Netlify CLI if it is not already available, then install the project dependencies:
 
 ```bash
-cd server
+npm install --global netlify-cli
 npm ci
+```
+
+Log in and link the local repository to the existing Netlify project when needed:
+
+```bash
+netlify login
+netlify link
+```
+
+### 2. Create the Turso database
+
+Create a database with the Turso CLI:
+
+```bash
+turso db create vladcosa-blog
+turso db show vladcosa-blog --url
+turso db tokens create vladcosa-blog
+```
+
+Alternatively, create the database in the Turso dashboard and copy its database URL and authentication token. The API creates and migrates its tables automatically on first use.
+
+### 3. Generate the administrator credentials
+
+Generate a bcrypt hash for the administrator password:
+
+```bash
 npm run hash-password
-cd ..
 ```
 
-Enter the password when prompted, then copy the resulting bcrypt hash into `.env`. Keep it inside single quotes because bcrypt hashes contain `$` characters:
-
-```env
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD_HASH='$2b$12$...'
-SESSION_SECRET=replace-with-a-random-secret-of-at-least-32-characters
-NODE_ENV=production
-PORT=4000
-DB_PATH=/app/data/blog.db
-UPLOADS_DIR=/app/data/uploads
-```
-
-You can generate a suitable session secret with:
+Enter the password when prompted and save the printed hash. Generate a separate session-signing secret of at least 32 characters, for example:
 
 ```bash
 openssl rand -hex 32
 ```
 
-The administrator password and session secret are private credentials. Do not commit `.env`.
+Never commit the password, Turso token, password hash, or session secret.
 
-### 2. Build and start the stack
+### 4. Configure Netlify
+
+In the Netlify project environment-variable settings, add these five values:
+
+| Variable              | Value                                             |
+| --------------------- | ------------------------------------------------- |
+| `TURSO_DATABASE_URL`  | The `libsql://` URL of the Turso database         |
+| `TURSO_AUTH_TOKEN`    | A token for that database                         |
+| `ADMIN_USERNAME`      | The single administrator username                 |
+| `ADMIN_PASSWORD_HASH` | The raw bcrypt hash from `npm run hash-password`  |
+| `SESSION_SECRET`      | A random secret containing at least 32 characters |
+
+Trigger a new Netlify deploy after saving them. Public `VITE_*` site values can also be configured there when they differ from the defaults in the frontend.
+
+## Local Development
+
+Copy the environment template and replace the backend placeholders with development credentials:
 
 ```bash
-docker compose up -d --build
+cp .env.example .env
+netlify dev
 ```
 
-The services are:
+`netlify dev` runs Vite, the Netlify Functions, and the redirects together. Use it instead of starting Vite alone whenever working on the blog API or administration panel.
 
-- `vladcosa-web`: nginx and the built React SPA, available locally at [http://localhost:3000](http://localhost:3000)
-- `vladcosa-api`: private Express service on container port 4000
-- `blog-data`: persistent volume mounted at `/app/data` in the API container
+The administration route is intentionally not linked from the public navigation. Open it directly at:
 
-### 3. Open the administrator
+```text
+http://localhost:8888/admin
+```
 
-The admin route is intentionally not linked from the public site. After deployment, open:
+The production address is:
 
 ```text
 https://vladcosa.ro/admin
 ```
 
-Sign in with `ADMIN_USERNAME` and the original password used to generate `ADMIN_PASSWORD_HASH`.
+Sign in with `ADMIN_USERNAME` and the original password used to create `ADMIN_PASSWORD_HASH`.
 
-### Health checks
+## Deployment
 
-Through nginx, both endpoints should return HTTP 200:
+Netlify builds the site with `npm run build`, publishes `dist/`, bundles the functions with esbuild, and applies the redirects in `netlify.toml`. The `/api/*` and `/uploads/*` rewrites precede the catch-all SPA fallback so public and admin deep links work while real static assets remain directly accessible.
 
-```bash
-curl --fail http://localhost:3000/health
-curl --fail http://localhost:3000/api/health
-```
+## Data and Backups
 
-## Persistent Data and Backups
+Turso contains the article records. Netlify Blobs contains the uploaded cover images. Back up or export both services; restoring only the database will leave published image paths without their corresponding files.
 
-The Compose-managed `blog-data` volume contains both the SQLite database (`blog.db`) and all uploaded blog images (`uploads/`). Back up the entire volume together and test restores regularly; backing up only the database will leave article cover images behind.
-
-Before copying the volume for a consistent offline backup, stop the stack with `docker compose down` without using `--volumes`. Never run `docker compose down --volumes` unless you explicitly intend to delete all blog data.
-
-## Local Development Without Docker
-
-Start the API:
-
-```bash
-cd server
-npm ci
-cp .env.example .env
-npm run hash-password
-# Add the generated hash and a session secret to server/.env
-npm start
-```
-
-In a second terminal, start the Vite frontend:
-
-```bash
-npm ci
-npm run dev
-```
-
-Vite serves the frontend on port 3000 and proxies `/api` and `/uploads` to `http://localhost:4000`.
-
-## Environment Variables
-
-The root `.env.example` is the source template for the complete Docker stack.
-
-| Variable | Purpose |
-| --- | --- |
-| `VITE_*` | Public site name, contact information, and external URLs embedded at frontend build time |
-| `NODE_ENV` | API runtime mode; use `production` in Docker |
-| `PORT` | Internal API port; the Compose and nginx configuration expect `4000` |
-| `DB_PATH` | SQLite file path; use `/app/data/blog.db` in Docker |
-| `UPLOADS_DIR` | Uploaded-image directory; use `/app/data/uploads` in Docker |
-| `ADMIN_USERNAME` | Username for the single blog administrator |
-| `ADMIN_PASSWORD_HASH` | Bcrypt password hash generated by `npm run hash-password` in `server/` |
-| `SESSION_SECRET` | Random value of at least 32 characters used to sign session cookies |
-
-The contact values are public business information. The password hash and session secret must remain private.
-
-## Reverse Proxy
-
-### Traefik
-
-The web service includes Traefik labels for `vladcosa.ro` and `www.vladcosa.ro`. Traefik should share a reachable Docker network with `vladcosa-web` and forward traffic to container port 80.
-
-### Nginx Proxy Manager
-
-When Nginx Proxy Manager runs on the same Docker network, forward to container `vladcosa-psychology` on port 80. When it runs on the host, forward to the host on port 3000. Enable SSL, Force SSL, and HTTP/2.
-
-## Frontend Quality Checks
+## Quality Checks
 
 ```bash
 npm run lint

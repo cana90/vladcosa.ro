@@ -1,5 +1,5 @@
 import readline from 'node:readline'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 function promptVisible() {
   const interfaceInstance = readline.createInterface({
@@ -61,7 +61,9 @@ function promptHidden() {
 }
 
 try {
-  const password = process.stdin.isTTY ? await promptHidden() : await promptVisible()
+  const password = process.stdin.isTTY
+    ? await promptHidden()
+    : await promptVisible()
   if (!password) {
     throw new Error('Parola nu poate fi goală.')
   }

@@ -14,6 +14,8 @@ const emptyArticle = {
   status: 'draft',
 }
 
+const maxCoverImageSize = 4 * 1024 * 1024
+
 function toEditorArticle(article) {
   return {
     title: article.title || '',
@@ -54,7 +56,7 @@ function ArticleEditor({ articleId }) {
 
     async function loadArticle() {
       try {
-        const response = await apiFetch('/api/admin/articles', {
+        const response = await apiFetch(`/api/admin/articles/${articleId}`, {
           signal: controller.signal,
         })
 
@@ -68,9 +70,7 @@ function ArticleEditor({ articleId }) {
         }
 
         const data = await response.json()
-        const foundArticle = data.articles?.find(
-          (currentArticle) => String(currentArticle.id) === String(articleId),
-        )
+        const foundArticle = data.article
 
         if (!foundArticle) {
           throw new ApiError('Articolul nu a fost găsit.')
@@ -153,6 +153,12 @@ function ArticleEditor({ articleId }) {
   const uploadCover = async (event) => {
     const file = event.target.files?.[0]
     if (!file) return
+
+    if (file.size > maxCoverImageSize) {
+      setError('Imaginea depășește limita de 4 MB.')
+      event.target.value = ''
+      return
+    }
 
     const formData = new FormData()
     formData.append('image', file)
@@ -436,7 +442,7 @@ function ArticleEditor({ articleId }) {
                 <p className="mt-2 text-sm text-slate-500">
                   {isUploading
                     ? 'Se încarcă imaginea…'
-                    : 'JPEG, PNG sau WebP, maximum 5 MB.'}
+                    : 'JPEG, PNG sau WebP, maximum 4 MB.'}
                 </p>
               </div>
             )}
