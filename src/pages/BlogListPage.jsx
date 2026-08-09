@@ -30,6 +30,7 @@ export default function BlogListPage() {
     async function loadArticles() {
       try {
         const response = await fetch(`/api/articles?page=${page}&limit=${pageSize}`, {
+          credentials: 'include',
           signal: controller.signal,
         })
 

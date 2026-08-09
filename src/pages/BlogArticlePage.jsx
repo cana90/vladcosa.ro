@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import rehypeSanitize from 'rehype-sanitize'
 import { Link, useParams } from 'react-router-dom'
 import Footer from '../components/Footer.jsx'
+import MarkdownContent from '../components/MarkdownContent.jsx'
 import Navigation from '../components/Navigation.jsx'
 import { usePageMetadata } from '../hooks/usePageMetadata.js'
 import { formatArticleDate } from '../utils/formatArticleDate.js'
@@ -34,6 +33,7 @@ function ArticleContent({ slug }) {
     async function loadArticle() {
       try {
         const response = await fetch(`/api/articles/${encodeURIComponent(slug)}`, {
+          credentials: 'include',
           signal: controller.signal,
         })
 
@@ -137,9 +137,7 @@ function ArticleContent({ slug }) {
               />
             )}
 
-            <div className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-normal prose-headings:text-slate-900 prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-sage-700 prose-a:decoration-sage-300 prose-a:underline-offset-4 hover:prose-a:text-sage-800 prose-strong:text-slate-800 prose-blockquote:border-sage-300 prose-blockquote:text-slate-600 prose-li:text-slate-700 prose-hr:border-sage-200">
-              <ReactMarkdown rehypePlugins={[rehypeSanitize]}>{article.content_md}</ReactMarkdown>
-            </div>
+            <MarkdownContent content={article.content_md} />
 
             <div className="mt-14 border-t border-sage-200 pt-8">
               <Link

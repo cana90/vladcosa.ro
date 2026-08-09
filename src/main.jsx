@@ -18,6 +18,7 @@ import './index.css'
 const defaultTitle = 'Vlad Coșa - Cabinet Individual de Psihologie | Timișoara'
 const defaultDescription =
   'Cabinet Individual de Psihologie Vlad Coșa din Timișoara. Psihoterapie Gestalt, terapie individuală, terapie de cuplu și consiliere online.'
+const AdminApp = React.lazy(() => import('./admin/AdminApp.jsx'))
 
 function HomePage() {
   const { hash } = useLocation()
@@ -61,6 +62,20 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/blog" element={<BlogListPage />} />
       <Route path="/blog/:slug" element={<BlogArticlePage />} />
+      <Route
+        path="/admin/*"
+        element={
+          <React.Suspense
+            fallback={
+              <div className="flex min-h-screen items-center justify-center bg-cream-50 text-slate-600">
+                <p role="status">Se încarcă panoul de administrare…</p>
+              </div>
+            }
+          >
+            <AdminApp />
+          </React.Suspense>
+        }
+      />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
