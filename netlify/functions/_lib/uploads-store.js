@@ -4,7 +4,7 @@ export const uploadKeyPattern = /^[a-zA-Z0-9][a-zA-Z0-9._-]*$/
 export const coverImagePattern = /^\/uploads\/([a-zA-Z0-9][a-zA-Z0-9._-]*)$/
 
 export function getUploadsStore() {
-  return getStore({ name: 'uploads', consistency: 'strong' })
+  return getStore('uploads')
 }
 
 export function uploadKeyFromCoverImage(coverImage) {

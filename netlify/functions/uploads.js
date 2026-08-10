@@ -40,7 +40,6 @@ export async function handler(event) {
   try {
     const entry = await getUploadsStore().getWithMetadata(key, {
       type: 'arrayBuffer',
-      consistency: 'strong',
     })
 
     if (!entry) {
