@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto'
+import { connectLambda } from '@netlify/blobs'
 import bcrypt from 'bcryptjs'
 import Busboy from 'busboy'
 import cookieParser from 'cookie-parser'
@@ -570,6 +571,7 @@ const expressHandler = serverless(app)
 
 export async function handler(event, context) {
   try {
+    connectLambda(event)
     await ensureDatabase()
     return await expressHandler(event, context)
   } catch (error) {

@@ -1,3 +1,4 @@
+import { connectLambda } from '@netlify/blobs'
 import { getUploadsStore, uploadKeyPattern } from './_lib/uploads-store.js'
 
 function readUploadKey(pathname) {
@@ -25,6 +26,8 @@ function jsonResponse(statusCode, error) {
 }
 
 export async function handler(event) {
+  connectLambda(event)
+
   if (event.httpMethod !== 'GET') {
     return jsonResponse(405, 'Metoda nu este permisă.')
   }
