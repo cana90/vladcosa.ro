@@ -5,6 +5,7 @@ import { usePageMetadata } from '../../hooks/usePageMetadata.js'
 import { useAuth } from '../AuthContext.jsx'
 import { ApiError, apiFetch, readApiError } from '../api.js'
 import AdminHeader from '../components/AdminHeader.jsx'
+import ArticlePreviewModal from '../components/ArticlePreviewModal.jsx'
 
 const emptyArticle = {
   title: '',
@@ -96,6 +97,7 @@ function ArticleEditor({ articleId }) {
   const [isLoading, setIsLoading] = useState(isEditing)
   const [isSaving, setIsSaving] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
+  const [isFullPreviewOpen, setIsFullPreviewOpen] = useState(false)
   const [error, setError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
   const [recoveryDraft, setRecoveryDraft] = useState(() =>
@@ -408,17 +410,9 @@ function ArticleEditor({ articleId }) {
               type="button"
               className="btn-secondary disabled:cursor-not-allowed disabled:opacity-60"
               disabled={isSaving || isUploading}
-              onClick={() => saveArticle('draft')}
+              onClick={() => setIsFullPreviewOpen(true)}
             >
-              {isSaving ? 'Se salvează…' : 'Salvează ciorna'}
-            </button>
-            <button
-              type="button"
-              className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
-              disabled={isSaving || isUploading}
-              onClick={() => saveArticle('published')}
-            >
-              {isSaving ? 'Se salvează…' : 'Publică'}
+              Previzualizează articolul
             </button>
           </div>
         </div>
@@ -598,7 +592,38 @@ function ArticleEditor({ articleId }) {
             </div>
           </div>
         </div>
+
+        <div className="mt-8 flex flex-wrap justify-end gap-3 border-t border-sage-200 pt-8">
+          <button
+            type="button"
+            className="btn-secondary disabled:cursor-not-allowed disabled:opacity-60"
+            disabled={isSaving || isUploading}
+            onClick={() => saveArticle('draft')}
+          >
+            {isSaving ? 'Se salvează…' : 'Salvează ciorna'}
+          </button>
+          <button
+            type="button"
+            className="btn-primary disabled:cursor-not-allowed disabled:opacity-60"
+            disabled={isSaving || isUploading}
+            onClick={() => saveArticle('published')}
+          >
+            {isSaving ? 'Se salvează…' : 'Publică'}
+          </button>
+        </div>
       </main>
+
+      {isFullPreviewOpen && (
+        <ArticlePreviewModal
+          article={article}
+          publishedAt={
+            savedRecord?.published_at ||
+            savedRecord?.created_at ||
+            new Date().toISOString()
+          }
+          onClose={() => setIsFullPreviewOpen(false)}
+        />
+      )}
     </div>
   )
 }

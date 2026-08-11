@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import ShareArticleButton from '../../components/ShareArticleButton.jsx'
 import { usePageMetadata } from '../../hooks/usePageMetadata.js'
 import { formatArticleDate } from '../../utils/formatArticleDate.js'
 import { useAuth } from '../AuthContext.jsx'
@@ -216,7 +217,7 @@ export default function DashboardPage() {
           </div>
         ) : articles.length > 0 ? (
           <div className="mt-10 overflow-x-auto rounded-3xl border border-sage-100 bg-white shadow-sm">
-            <table className="w-full min-w-[900px] text-left">
+            <table className="w-full min-w-[1100px] text-left">
               <thead className="border-b border-sage-100 bg-sage-50/60 text-sm uppercase tracking-wider text-slate-600">
                 <tr>
                   <th className="px-6 py-4 font-medium">Titlu</th>
@@ -229,6 +230,7 @@ export default function DashboardPage() {
               <tbody className="divide-y divide-sage-100">
                 {articles.map((article) => {
                   const isBusy = actionId === article.id
+                  const publicUrl = `${window.location.origin}/blog/${article.slug}`
 
                   return (
                     <tr
@@ -253,7 +255,24 @@ export default function DashboardPage() {
                         {formatArticleDate(article.updated_at) || '—'}
                       </td>
                       <td className="px-6 py-5">
-                        <div className="flex justify-end gap-4 text-sm font-medium">
+                        <div className="flex flex-wrap justify-end gap-x-4 gap-y-2 text-sm font-medium">
+                          {article.status === 'published' && (
+                            <>
+                              <a
+                                href={publicUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-sage-700 transition-colors hover:text-sage-900"
+                              >
+                                Vezi articolul
+                              </a>
+                              <ShareArticleButton
+                                title={article.title}
+                                url={publicUrl}
+                                className="text-sage-700 transition-colors hover:text-sage-900"
+                              />
+                            </>
+                          )}
                           <Link
                             to={`/admin/articles/${article.id}/edit`}
                             className="text-sage-700 transition-colors hover:text-sage-900"
