@@ -21,14 +21,14 @@ export default function Contact() {
   const touchEndX = useRef(0)
   const carouselRef = useRef(null)
 
-  const email = env.VITE_EMAIL || 'cosa.vlad@gmail.com'
+  const email = env.VITE_EMAIL || 'psihologie@vladcosa.com'
   const phone = env.VITE_PHONE || '+40 748 133 913'
   const phoneHref = `tel:${(env.VITE_PHONE || '+40 748 133 913').replace(/\s/g, '')}`
-  const address = env.VITE_ADDRESS || 'Strada August Treboniu Laurian, nr. 5, 300200 Timișoara, România'
+  const address = env.VITE_ADDRESS || 'Strada August Treboniu Laurian, nr. 5, apartament 6, 300200 Timișoara, România'
   const addressParts = address.split(', ')
   const facebookUrl = env.VITE_FACEBOOK_URL || 'https://www.facebook.com/profile.php?id=61581089522302'
   const calendlyUrl = env.VITE_CALENDLY_URL || 'https://calendly.com/cosa-vlad/50min'
-  const mapsUrl = env.VITE_MAPS_EMBED_URL || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2783.1!2d21.2269!3d45.7566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDXCsDQ1JzIzLjgiTiAyMcKwMTMnMzYuOCJF!5e0!3m2!1sen!2sro!4v1234567890!5m2!1sen!2sro&q=Strada+August+Treboniu+Laurian+5,+Timișoara+300200,+Romania"
+  const mapsUrl = env.VITE_MAPS_EMBED_URL || 'https://www.google.com/maps?q=45.7465894%2C21.2190466&z=18&output=embed'
 
   const officeImages = [
     '/cabinet1.jpg',
@@ -123,16 +123,16 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-8 lg:py-12 bg-white">
+    <section id="contact" className="section-spacing bg-white">
       <div className="container-custom">
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <div className="section-shell grid lg:grid-cols-2 gap-10 lg:gap-12 items-start">
           {/* Left Column - Contact Info */}
           <div className="space-y-4">
             <div>
-              <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-3">
+              <h2 className="section-title">
                 Programează o consultație
               </h2>
-              <p className="text-lg text-slate-600 leading-relaxed mb-4">
+              <p className="section-lead mb-6">
                 Poți programa o ședință direct online folosind butonul de mai jos sau putem intra în legătură prin detaliile de mai jos.
               </p>
 

@@ -44,7 +44,7 @@ export function PrivacyPolicyPage() {
       {/* ȘABLON JURIDIC: textul trebuie revizuit de proprietarul site-ului și de un avocat înainte de publicare. */}
       <LegalSection title="1. Operatorul datelor">
         <p>
-          Operatorul datelor cu caracter personal este Coșa Vlad - Cabinet Individual de Psihologie, cu sediul profesional în Strada August Treboniu Laurian nr. 5, Timișoara. Pentru întrebări privind protecția datelor, ne poți contacta la adresa de e-mail afișată în secțiunea Contact a site-ului.
+          Operatorul datelor cu caracter personal este Coșa Vlad - Cabinet Individual de Psihologie, cu sediul profesional în Strada August Treboniu Laurian nr. 5, apartament 6, Timișoara. Pentru întrebări privind protecția datelor, ne poți contacta la adresa de e-mail afișată în secțiunea Contact a site-ului.
         </p>
       </LegalSection>
 
@@ -107,7 +107,7 @@ export function TermsAndConditionsPage() {
       {/* ȘABLON JURIDIC: textul trebuie revizuit de proprietarul site-ului și de un avocat înainte de publicare. */}
       <LegalSection title="1. Despre acest site">
         <p>
-          Site-ul vladcosa.ro este prezentat de Coșa Vlad - Cabinet Individual de Psihologie, cu sediul profesional în Strada August Treboniu Laurian nr. 5, Timișoara. Prin utilizarea site-ului accepți acești termeni și condiții.
+          Site-ul vladcosa.ro este prezentat de Coșa Vlad - Cabinet Individual de Psihologie, cu sediul profesional în Strada August Treboniu Laurian nr. 5, apartament 6, Timișoara. Prin utilizarea site-ului accepți acești termeni și condiții.
         </p>
       </LegalSection>
 

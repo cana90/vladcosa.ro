@@ -4,15 +4,16 @@ export default function About() {
   const [isExpanded, setIsExpanded] = useState(false)
   
   return (
-    <section id="about" className="py-8 lg:py-12 bg-white">
+    <section id="about" className="section-spacing bg-white">
       <div className="container-custom">
-        <div className="max-w-4xl mx-auto">
+        <div className="section-shell">
+          <div className="max-w-4xl">
           
-          {/* Content */}
-          <div className="flex flex-col justify-center">
-            <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-4">
-              Despre mine
-            </h2>
+            {/* Content */}
+            <div className="flex flex-col justify-center">
+              <h2 className="section-title mb-4">
+                Despre mine
+              </h2>
             
             <div className="space-y-3 text-slate-700 leading-relaxed text-lg">
               <p className="font-light text-sage-700 text-xl">
@@ -65,23 +66,21 @@ export default function About() {
                 </svg>
               </button>
             </div>
+            </div>
           </div>
-          
-        </div>
 
-        {/* Education Section - New Row */}
-        <div className="mt-16 sm:mt-24 border-t border-sage-200 pt-16">
-          <h3 className="text-2xl font-light text-slate-900 mb-10 text-center sm:text-left">
-            Educație și Certificări
-          </h3>
+          {/* Education Section - New Row */}
+          <div className="mt-14 sm:mt-16 border-t border-sage-200 pt-10 sm:pt-12">
+            <h3 className="text-2xl font-light text-slate-900 mb-10">
+              Educație și Certificări
+            </h3>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="flex gap-4 items-start group">
               <div className="w-2 h-2 mt-2.5 rounded-full bg-sage-400 group-hover:scale-125 transition-all duration-300 flex-shrink-0" />
               <div>
                 <span className="block text-lg text-slate-900 font-medium mb-1">Psiholog Clinician</span>
-                <span className="text-slate-500">Universitatea de Vest</span>
-                <span className="block text-sm text-sage-600 mt-1">2015 - 2020</span>
+                <span className="text-slate-500">Ciumăgeanu & Sălcău – Societate Civilă Profesională de Psihologie</span>
               </div>
             </div>
 
@@ -89,7 +88,7 @@ export default function About() {
               <div className="w-2 h-2 mt-2.5 rounded-full bg-sage-400 group-hover:scale-125 transition-all duration-300 flex-shrink-0" />
               <div>
                 <span className="block text-lg text-slate-900 font-medium mb-1">Psihoterapeut Gestalt</span>
-                <span className="text-slate-500">Institutul de Psihoterapie Gestalt</span>
+                <span className="text-slate-500">Societatea de Gestalt Terapie din România</span>
               </div>
             </div>
 
@@ -99,6 +98,7 @@ export default function About() {
                 <span className="block text-lg text-slate-900 font-medium mb-1">Drept de liberă practică</span>
                 <span className="text-slate-500">Colegiul Psihologilor din România</span>
               </div>
+            </div>
             </div>
           </div>
         </div>

@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-padding-top: 5rem;
+  }
+
   body {
     @apply font-sans text-slate-800 antialiased;
   }
@@ -15,6 +19,26 @@
 @layer components {
   .container-custom {
     @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
+  }
+
+  .section-shell {
+    @apply max-w-6xl mx-auto;
+  }
+
+  .section-spacing {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  .section-header {
+    @apply max-w-3xl mb-10 lg:mb-12;
+  }
+
+  .section-title {
+    @apply text-4xl sm:text-5xl font-light leading-tight text-slate-900;
+  }
+
+  .section-lead {
+    @apply mt-4 text-lg leading-relaxed text-slate-600;
   }
   
   .btn-primary {

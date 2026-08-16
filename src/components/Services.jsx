@@ -1,65 +1,86 @@
 const services = [
   {
     title: "Terapie Individuală",
+    format: "În persoană / online",
     description: "Sesiuni personalizate pentru adulți care se confruntă cu anxietate, depresie, stres sau căutări identitare.",
     duration: "50 minute",
-    icon: "👤"
+    price: "200 lei"
   },
   {
     title: "Terapie de Cuplu",
     description: "Sprijin pentru relații, comunicare îmbunătățită și rezolvarea conflictelor într-un cadru empatic.",
-    duration: "60 minute",
-    icon: (
-      <svg className="w-8 h-8" viewBox="0 0 100 100" fill="currentColor">
-        {/* Rubin's Vase/Faces - simplified */}
-        <path d="M30,20 Q25,40 25,50 Q25,60 30,80 L30,20" />
-        <path d="M70,20 Q75,40 75,50 Q75,60 70,80 L70,20" />
-        <path d="M30,20 Q50,22 70,20 L70,80 Q50,78 30,80 Z" opacity="0.7" />
-      </svg>
-    )
+    duration: "90 minute",
+    price: "350 lei"
   },
   {
-    title: "Consiliere Online",
-    description: "Sesiuni flexibile prin videoconferință, oferind același nivel de profesionalism și confidențialitate ca ședințele față în față.",
-    duration: "50 minute",
-    icon: "💻"
+    title: "Terapie de Grup",
+    description: "Sesiuni într-un cadru sigur și confidențial, în care participanții pot explora relațiile, tiparele și experiențele personale alături de ceilalți.",
+    duration: "120 minute",
+    price: "150 lei / participant"
+  },
+  {
+    title: "Evaluare psihologică",
+    description: "Evaluări adaptate obiectivului solicitării, realizate prin interviu clinic și instrumente psihologice adecvate.",
+    duration: "50–120 minute",
+    price: "200–500 lei",
+    priceNote: "(în funcție de complexitatea evaluării)"
   },
 ]
 
 export default function Services() {
   return (
-    <section id="services" className="py-8 lg:py-12 bg-cream-50">
+    <section id="services" className="section-spacing bg-cream-50">
       <div className="container-custom">
-        <div className="max-w-3xl mb-6">
-          <h2 className="text-4xl sm:text-5xl font-light text-slate-900 mb-3">
+        <div className="section-shell">
+          <div className="section-header">
+          <h2 className="section-title">
             Servicii
           </h2>
-          <p className="text-lg text-slate-600 leading-relaxed">
+          <p className="section-lead">
             Fiecare sesiune este adaptată nevoilor tale individuale, oferind un spațiu 
             de siguranță pentru explorare și dezvoltare personală.
           </p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-4 lg:gap-6">
+        <div className="grid md:grid-cols-2 gap-8">
           {services.map((service, index) => (
             <div 
               key={index}
-              className="group p-8 lg:p-10 bg-white rounded-sm shadow-sm hover:shadow-xl transition-all duration-300"
+              className="group relative overflow-hidden flex flex-col bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-700"
             >
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-2xl font-serif text-slate-900 group-hover:text-sage-700 transition-colors">
+              <div className="absolute inset-0 bg-gradient-to-br from-sage-100/40 via-transparent to-cream-100/60 opacity-40 group-hover:opacity-80 transition-opacity duration-700" />
+
+              <div className="relative z-10 flex h-full flex-col">
+                <h3 className="text-2xl font-serif text-slate-900">
                   {service.title}
                 </h3>
-                <span className="text-sm text-sage-600 bg-sage-50 px-3 py-1 rounded-full whitespace-nowrap ml-4">
-                  {service.duration}
-                </span>
+                {service.format && (
+                  <p className="mt-1 text-sm font-medium text-sage-700">
+                    {service.format}
+                  </p>
+                )}
+
+                <p className="mt-6 text-lg text-slate-600 leading-relaxed flex-1">
+                  {service.description}
+                </p>
+
+                <div className="mt-6 pt-4 border-t border-sage-200 flex flex-wrap items-center justify-between gap-3">
+                  <span className="text-sm text-sage-700 bg-sage-50 px-3 py-1 rounded-full whitespace-nowrap">
+                    {service.duration}
+                  </span>
+                  <span className="font-medium text-slate-800">
+                    {service.price}
+                  </span>
+                </div>
+                {service.priceNote && (
+                  <p className="mt-2 text-sm text-slate-500">
+                    {service.priceNote}
+                  </p>
+                )}
               </div>
-              
-              <p className="text-slate-600 leading-relaxed">
-                {service.description}
-              </p>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>

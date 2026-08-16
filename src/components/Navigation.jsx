@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const sections = ['hero', 'about', 'gestalt', 'services', 'contact']
+const navigationHeight = 80
 const navLinks = [
   { id: 'about', label: 'Despre' },
   { id: 'gestalt', label: 'Metodă' },
@@ -104,7 +105,11 @@ export default function Navigation() {
 
       const element = document.querySelector(hash)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        const sectionTop = element.getBoundingClientRect().top + window.scrollY
+        window.scrollTo({
+          top: Math.max(0, sectionTop - navigationHeight),
+          behavior: 'smooth',
+        })
       }
     },
     [location.pathname, navigate],

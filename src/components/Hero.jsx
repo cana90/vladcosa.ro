@@ -8,9 +8,9 @@ export default function Hero() {
   }
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center bg-gradient-to-br from-cream-50 via-cream-100 to-sage-50">
-      <div className="container-custom py-8 lg:py-16">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
+    <section id="hero" className="relative min-h-screen flex items-center bg-gradient-to-br from-cream-50 via-cream-100 to-sage-50 pt-20 lg:pt-0">
+      <div className="container-custom w-full py-8 lg:py-16">
+        <div className="section-shell grid lg:grid-cols-2 gap-8 items-center">
           {/* Left Column - Text Content */}
           <div className="space-y-3">
             <div className="space-y-2">
@@ -54,7 +54,7 @@ export default function Hero() {
                 height="1341"
               />
               {/* Decorative Element */}
-              <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-sage-100 rounded-xl -z-10 opacity-30"></div>
+              <div className="absolute -bottom-8 right-0 sm:-right-8 w-48 h-48 bg-sage-100 rounded-xl -z-10 opacity-30"></div>
             </div>
           </div>
 
