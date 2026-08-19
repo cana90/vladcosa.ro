@@ -50,7 +50,7 @@ export default function Hero() {
               <img 
                 src="/vlad-profile.jpg" 
                 alt="Vlad Coșa - Psiholog"
-                className="block h-[clamp(11rem,34svh,18rem)] w-full max-w-full rounded-xl object-cover object-[center_30%] shadow-2xl [@media(min-height:760px)_and_(max-width:639px)]:h-[49svh] [@media(min-height:760px)_and_(max-width:639px)]:max-h-[28rem] lg:h-auto lg:aspect-[3/4]"
+                className="block h-[clamp(11rem,34svh,18rem)] w-full max-w-full rounded-xl object-cover object-[center_30%] shadow-2xl [@media(min-height:680px)_and_(max-height:759px)_and_(max-width:639px)]:h-[47svh] [@media(min-height:760px)_and_(max-width:639px)]:h-[49svh] [@media(min-height:760px)_and_(max-width:639px)]:max-h-[28rem] lg:h-auto lg:aspect-[3/4]"
                 width="1341"
                 height="1341"
               />
