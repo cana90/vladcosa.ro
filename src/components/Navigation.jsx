@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { calendlyUrl, openCalendlyPopup } from '../config/booking.js'
 
 const sections = ['hero', 'about', 'gestalt', 'services', 'contact']
 const navigationHeight = 80
@@ -179,11 +180,10 @@ export default function Navigation() {
               )
             })}
             <a
-              href="/#contact"
-              onClick={(event) => {
-                event.preventDefault()
-                handleNavClick('contact')
-              }}
+              href={calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={openCalendlyPopup}
               className="btn-primary !py-2 !px-6 text-sm"
             >
               Programează
@@ -257,11 +257,13 @@ export default function Navigation() {
               )
             })}
             <a
-              href="/#contact"
+              href={calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-primary !py-2 !px-6 text-sm inline-block"
               onClick={(event) => {
-                event.preventDefault()
-                handleNavClick('contact')
+                setIsOpen(false)
+                openCalendlyPopup(event)
               }}
             >
               Programează

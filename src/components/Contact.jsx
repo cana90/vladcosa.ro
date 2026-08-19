@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { calendlyUrl, openCalendlyPopup } from '../config/booking.js'
 
 const env = import.meta.env
 const mapsConsentKey = 'vladcosa-google-maps-consent'
@@ -27,7 +28,6 @@ export default function Contact() {
   const address = env.VITE_ADDRESS || 'Strada August Treboniu Laurian, nr. 5, apartament 6, 300200 Timișoara, România'
   const addressParts = address.split(', ')
   const facebookUrl = env.VITE_FACEBOOK_URL || 'https://www.facebook.com/profile.php?id=61581089522302'
-  const calendlyUrl = env.VITE_CALENDLY_URL || 'https://calendly.com/cosa-vlad/50min'
   const mapsUrl = env.VITE_MAPS_EMBED_URL || 'https://www.google.com/maps?q=45.7465894%2C21.2190466&z=18&output=embed'
 
   const officeImages = [
@@ -141,6 +141,7 @@ export default function Contact() {
                 href={calendlyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={openCalendlyPopup}
                 className="btn-primary inline-flex items-center gap-2"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

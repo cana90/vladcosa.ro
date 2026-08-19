@@ -1,12 +1,6 @@
-export default function Hero() {
-  const scrollToContact = (e) => {
-    e.preventDefault()
-    const element = document.querySelector('#contact')
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
+import { calendlyUrl, openCalendlyPopup } from '../config/booking.js'
 
+export default function Hero() {
   return (
     <section id="hero" className="relative min-h-screen flex items-center bg-gradient-to-br from-cream-50 via-cream-100 to-sage-50 pt-20 lg:pt-0">
       <div className="container-custom w-full py-8 lg:py-16">
@@ -31,7 +25,13 @@ export default function Hero() {
             </div>
             
             <div className="hidden lg:flex flex-col sm:flex-row sm:items-center gap-3 pt-1">
-              <a href="#contact" onClick={scrollToContact} className="btn-primary">
+              <a
+                href={calendlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={openCalendlyPopup}
+                className="btn-primary"
+              >
                 Programează o consultație
               </a>
               <a href="#about" className="group inline-flex items-center text-sage-700 font-medium hover:text-sage-800 transition-colors">
@@ -60,7 +60,13 @@ export default function Hero() {
 
           {/* Mobile-only buttons placed under image */}
           <div className="lg:hidden flex flex-col items-center gap-6 mt-4 w-full">
-            <a href="#contact" onClick={scrollToContact} className="btn-primary w-full text-center">
+            <a
+              href={calendlyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={openCalendlyPopup}
+              className="btn-primary w-full text-center"
+            >
               Programează o consultație
             </a>
           </div>
