@@ -14,11 +14,20 @@ const navLinks = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
+  const [hasScrolled, setHasScrolled] = useState(() => window.scrollY > 16)
   const menuRef = useRef(null)
   const menuButtonRef = useRef(null)
   const location = useLocation()
   const navigate = useNavigate()
   const isBlogRoute = location.pathname.startsWith('/blog')
+
+  useEffect(() => {
+    const handleScroll = () => setHasScrolled(window.scrollY > 16)
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   // Track active section with IntersectionObserver
   useEffect(() => {
@@ -122,7 +131,13 @@ export default function Navigation() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-cream-50/80 backdrop-blur-md border-b border-sage-100/50">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 bg-cream-50/80 backdrop-blur-md border-b border-sage-100/50 transition-transform duration-300 md:translate-y-0 ${
+        location.pathname === '/' && !hasScrolled && !isOpen
+          ? '-translate-y-full pointer-events-none md:pointer-events-auto'
+          : 'translate-y-0'
+      }`}
+    >
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo/Brand */}

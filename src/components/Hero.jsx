@@ -5,23 +5,23 @@ export default function Hero() {
   }
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center bg-gradient-to-br from-cream-50 via-cream-100 to-sage-50 pt-20 lg:pt-0">
-      <div className="container-custom w-full pt-8 pb-24 lg:py-16">
-        <div className="section-shell grid lg:grid-cols-2 gap-8 items-center">
+    <section id="hero" className="relative flex min-h-[100svh] max-w-full items-center overflow-x-clip bg-gradient-to-br from-cream-50 via-cream-100 to-sage-50">
+      <div className="container-custom box-border w-full max-w-full py-3 [@media(min-height:760px)_and_(max-width:639px)]:py-5 sm:py-6 lg:py-16">
+        <div className="section-shell grid min-w-0 max-w-full items-center gap-3 [@media(min-height:760px)_and_(max-width:639px)]:gap-4 sm:gap-5 lg:grid-cols-2 lg:gap-8">
           {/* Left Column - Text Content */}
-          <div className="space-y-3">
-            <div className="space-y-2">
-              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-light text-slate-900 leading-tight">
+          <div className="min-w-0 space-y-2 lg:space-y-3">
+            <div className="space-y-1 sm:space-y-2">
+              <h1 className="text-5xl [@media(min-height:760px)_and_(max-width:639px)]:text-6xl sm:text-6xl lg:text-8xl font-light text-slate-900 leading-tight">
                 Vlad Coșa
               </h1>
-              <p className="text-xl sm:text-2xl text-slate-600 font-light uppercase tracking-widest">
+              <p className="text-base [@media(min-height:760px)_and_(max-width:639px)]:text-lg sm:text-xl lg:text-2xl text-slate-600 font-light uppercase tracking-[0.16em] sm:tracking-widest">
                 Psiholog clinician
               </p>
             </div>
             
             <div className="w-24 h-px bg-sage-400"></div>
             
-            <div className="text-xl text-slate-700 leading-relaxed max-w-md space-y-1">
+            <div className="max-w-md break-words space-y-0.5 text-[15px] leading-[1.4] text-slate-700 [@media(min-height:760px)_and_(max-width:639px)]:text-[17px] sm:space-y-1 sm:text-lg sm:leading-relaxed lg:text-xl">
               <p>Sunt psiholog clinician și psihoterapeut Gestalt.</p>
               <p>Cred că fiecare persoană are în sine resurse de creștere și vindecare.</p>
               <p>Rolul meu este să creez un spațiu sigur, empatic și autentic în care aceste resurse să poată fi descoperite.</p>
@@ -45,40 +45,42 @@ export default function Hero() {
           </div>
           
           {/* Right Column - Visual Element */}
-          <div className="relative flex justify-center lg:justify-end">
-            <div className="relative">
+          <div className="relative flex min-w-0 max-w-full justify-center lg:justify-end">
+            <div className="relative box-border w-full min-w-0 max-w-sm">
               <img 
                 src="/vlad-profile.jpg" 
                 alt="Vlad Coșa - Psiholog"
-                className="w-full max-w-sm aspect-[3/4] object-cover rounded-xl shadow-2xl"
+                className="block h-[clamp(11rem,34svh,18rem)] w-full max-w-full rounded-xl object-cover object-[center_30%] shadow-2xl [@media(min-height:760px)_and_(max-width:639px)]:h-[49svh] [@media(min-height:760px)_and_(max-width:639px)]:max-h-[28rem] lg:h-auto lg:aspect-[3/4]"
                 width="1341"
                 height="1341"
               />
               {/* Decorative Element */}
-              <div className="absolute -bottom-8 right-0 sm:-right-8 w-48 h-48 bg-sage-100 rounded-xl -z-10 opacity-30"></div>
+              <div className="absolute -bottom-8 right-0 -z-10 hidden h-48 w-48 rounded-xl bg-sage-100 opacity-30 lg:block sm:-right-8"></div>
             </div>
           </div>
 
           {/* Mobile-only buttons placed under image */}
-          <div className="lg:hidden flex flex-col items-center gap-6 mt-4 w-full">
+          <div className="flex w-full min-w-0 max-w-full flex-col items-center lg:hidden">
             <a
               href="#services"
               onClick={scrollToServices}
-              className="btn-primary w-full text-center"
+              className="btn-primary box-border w-full max-w-full justify-center py-2.5 text-center"
             >
               Programează o consultație
             </a>
           </div>
+
+          {/* Mobile-only scroll indicator */}
+          <a
+            href="#about"
+            className="mt-2 flex justify-center text-sage-600 transition-colors hover:text-sage-700 [@media(min-height:760px)_and_(max-width:639px)]:mt-3 lg:hidden"
+            aria-label="Continuă către secțiunea Despre mine"
+          >
+            <svg className="h-6 w-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </a>
         </div>
-      </div>
-      
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 lg:hidden">
-        <a href="#about" className="flex flex-col items-center text-sage-600 hover:text-sage-700 transition-colors">
-          <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </a>
       </div>
     </section>
   )

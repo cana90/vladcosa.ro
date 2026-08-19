@@ -136,7 +136,7 @@ export default function Contact() {
 
           <div className="grid gap-8 lg:grid-cols-2 lg:items-stretch">
             {/* Contact Details */}
-            <div className="order-1 h-full rounded-2xl border border-sage-100 bg-cream-50 p-6 sm:p-8">
+            <div className="order-1 min-w-0 h-full rounded-2xl border border-sage-100 bg-cream-50 p-6 sm:p-8">
             <div className="space-y-3">
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-sage-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -144,7 +144,7 @@ export default function Contact() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <a href={`mailto:${email}`} className="text-sage-700 hover:text-sage-800 transition-colors">
+                <a href={`mailto:${email}`} className="min-w-0 break-all text-sage-700 hover:text-sage-800 transition-colors">
                   {email}
                 </a>
               </div>
@@ -205,7 +205,7 @@ export default function Contact() {
           </div>
 
           {/* Office Photos */}
-          <div className="order-3 h-[22rem] sm:h-[26rem] lg:col-span-2 lg:h-[30rem]">
+          <div className="order-3 min-w-0 h-[22rem] sm:h-[26rem] lg:col-span-2 lg:h-[30rem]">
             {/* Office Carousel */}
             <div
               className="h-full bg-sage-50 p-2 rounded-2xl"
@@ -288,7 +288,7 @@ export default function Contact() {
           </div>
 
           {/* Map */}
-          <div className="order-2 h-[22rem] sm:h-[26rem] lg:h-full lg:min-h-[22rem]">
+          <div className="order-2 min-w-0 h-[22rem] sm:h-[26rem] lg:h-full lg:min-h-[22rem]">
             {hasMapsConsent ? (
               <div className="flex h-full flex-col gap-3">
                 <div className="min-h-0 flex-1 bg-gradient-to-br from-sage-100 to-slate-100 rounded-2xl shadow-lg overflow-hidden">
@@ -329,7 +329,7 @@ export default function Contact() {
             )}
           </div>
 
-          <div className="order-4 w-fit max-w-full justify-self-center rounded-xl border border-sage-100 bg-sage-50 px-6 py-4 lg:col-span-2">
+          <div className="order-4 min-w-0 w-fit max-w-full justify-self-center rounded-xl border border-sage-100 bg-sage-50 px-6 py-4 lg:col-span-2">
             <p className="text-center text-sm text-slate-600 leading-relaxed">
               <strong className="text-slate-800">Confidențialitate:</strong>{' '}
               Toate informațiile partajate rămân strict confidențiale,
