@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function About() {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -21,7 +22,11 @@ export default function About() {
               </p>
               
               <p>
-                Aș vrea să folosesc postările de pe această pagină pentru a vă povesti despre terapia Gestalt și cum o voi folosi în cabinet. Înainte de a face asta, cred că un început bun este să vă spun câteva cuvinte despre mine ca persoană.
+                Aș vrea să folosesc postările de pe această{' '}
+                <Link to="/blog" className="text-sage-700 underline decoration-sage-300 underline-offset-4 transition-colors hover:text-sage-800">
+                  pagină
+                </Link>{' '}
+                pentru a vă povesti despre terapia Gestalt și cum o voi folosi în cabinet. Înainte de a face asta, cred că un început bun este să vă spun câteva cuvinte despre mine ca persoană.
               </p>
               
               {/* Collapsible Content */}

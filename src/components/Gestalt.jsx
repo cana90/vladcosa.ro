@@ -84,15 +84,15 @@ export default function Gestalt() {
           </div>
 
           {/* Why it works */}
-          <div className="max-w-4xl bg-white rounded-3xl p-10 sm:p-14 shadow-sm border border-sage-100">
-          <h3 className="text-3xl font-light text-slate-900 mb-8">De ce să alegi terapia Gestalt?</h3>
+          <div className="w-full bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-sage-100">
+          <h3 className="text-3xl font-light text-slate-900 mb-6">De ce să alegi terapia Gestalt?</h3>
 
-          <div className="space-y-6 text-slate-700 leading-relaxed">
+          <div className="space-y-5 text-slate-700 leading-relaxed">
             <p>
               Terapia Gestalt nu își propune să te &quot;repare&quot;, pentru că nu ești stricat. Scopul ei este să te ajute să redevii întreg. Deseori, blocajele noastre vin din &quot;gestalt-uri neterminate&quot; — situații din trecut care nu au fost închise emoțional și care ne consumă energie în prezent.
             </p>
 
-            <ul className="space-y-4 my-8">
+            <ul className="space-y-3 my-6">
               <li className="flex items-start gap-3">
                 <span className="text-sage-500 mt-1">✓</span>
                 <span>Crește capacitatea de a face față stresului și anxietății</span>

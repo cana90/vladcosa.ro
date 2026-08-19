@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { calendlyUrl, openCalendlyPopup } from '../config/booking.js'
 
 const env = import.meta.env
 const mapsConsentKey = 'vladcosa-google-maps-consent'
@@ -125,34 +124,19 @@ export default function Contact() {
   return (
     <section id="contact" className="section-spacing bg-white">
       <div className="container-custom">
-        <div className="section-shell grid lg:grid-cols-2 gap-10 lg:gap-12 items-start">
-          {/* Left Column - Contact Info */}
-          <div className="space-y-4">
-            <div>
-              <h2 className="section-title">
-                Programează o consultație
-              </h2>
-              <p className="section-lead mb-6">
-                Poți programa o ședință direct online folosind butonul de mai jos sau putem intra în legătură prin detaliile de mai jos.
-              </p>
+        <div className="section-shell">
+          <div className="mb-10 lg:mb-12">
+            <h2 className="section-title">
+              Contact
+            </h2>
+            <p className="section-lead">
+              Pentru întrebări sau informații suplimentare, putem intra în legătură prin detaliile de mai jos.
+            </p>
+          </div>
 
-              {/* Calendly Button */}
-              <a
-                href={calendlyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={openCalendlyPopup}
-                className="btn-primary inline-flex items-center gap-2"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Programează Online
-              </a>
-            </div>
-
-            <div className="w-24 h-px bg-sage-400"></div>
-
+          <div className="grid gap-8 lg:grid-cols-2 lg:items-stretch">
+            {/* Contact Details */}
+            <div className="order-1 h-full rounded-2xl border border-sage-100 bg-cream-50 p-6 sm:p-8">
             <div className="space-y-3">
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-sage-100 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -218,22 +202,13 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="pt-4">
-              <div className="p-6 bg-sage-50 rounded-lg border border-sage-100">
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  <strong className="text-slate-800">Confidențialitate:</strong>{' '}
-                  Toate informațiile partajate rămân strict confidențiale,
-                  în conformitate cu Codul Deontologic al Psihologilor din România.
-                </p>
-              </div>
-            </div>
           </div>
 
-          {/* Right Column - Office Photos & Map */}
-          <div className="lg:sticky lg:top-32 lg:self-start space-y-8">
+          {/* Office Photos */}
+          <div className="order-3 h-[22rem] sm:h-[26rem] lg:col-span-2 lg:h-[30rem]">
             {/* Office Carousel */}
             <div
-              className="bg-sage-50 p-2 rounded-2xl"
+              className="h-full bg-sage-50 p-2 rounded-2xl"
               ref={carouselRef}
               role="region"
               aria-label="Fotografii cabinet"
@@ -245,7 +220,7 @@ export default function Contact() {
               onBlurCapture={handleCarouselBlur}
             >
               <div
-                className="relative rounded-xl overflow-hidden aspect-[4/3] shadow-sm"
+                className="relative h-full rounded-xl overflow-hidden shadow-sm"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -310,11 +285,13 @@ export default function Contact() {
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Map */}
+          {/* Map */}
+          <div className="order-2 h-[22rem] sm:h-[26rem] lg:h-full lg:min-h-[22rem]">
             {hasMapsConsent ? (
-              <div className="space-y-3">
-                <div className="aspect-square lg:aspect-[4/3] bg-gradient-to-br from-sage-100 to-slate-100 rounded-xl shadow-lg overflow-hidden">
+              <div className="flex h-full flex-col gap-3">
+                <div className="min-h-0 flex-1 bg-gradient-to-br from-sage-100 to-slate-100 rounded-2xl shadow-lg overflow-hidden">
                   <iframe
                     src={mapsUrl}
                     width="100%"
@@ -336,7 +313,7 @@ export default function Contact() {
               </div>
             ) : (
               <div
-                className="aspect-square lg:aspect-[4/3] bg-gradient-to-br from-sage-100 to-slate-100 rounded-xl shadow-lg p-8 flex flex-col items-center justify-center text-center"
+                className="h-full bg-gradient-to-br from-sage-100 to-slate-100 rounded-2xl shadow-lg p-6 sm:p-8 flex flex-col items-center justify-center text-center"
                 role="region"
                 aria-label="Locația cabinetului"
               >
@@ -351,7 +328,16 @@ export default function Contact() {
               </div>
             )}
           </div>
+
+          <div className="order-4 w-fit max-w-full justify-self-center rounded-xl border border-sage-100 bg-sage-50 px-6 py-4 lg:col-span-2">
+            <p className="text-center text-sm text-slate-600 leading-relaxed">
+              <strong className="text-slate-800">Confidențialitate:</strong>{' '}
+              Toate informațiile partajate rămân strict confidențiale,
+              în conformitate cu Codul Deontologic al Psihologilor din România.
+            </p>
+          </div>
         </div>
+      </div>
       </div>
     </section>
   )

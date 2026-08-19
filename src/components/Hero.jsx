@@ -1,7 +1,7 @@
 export default function Hero() {
-  const scrollToContact = (event) => {
+  const scrollToServices = (event) => {
     event.preventDefault()
-    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
+    document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -29,8 +29,8 @@ export default function Hero() {
             
             <div className="hidden lg:flex flex-col sm:flex-row sm:items-center gap-3 pt-1">
               <a
-                href="#contact"
-                onClick={scrollToContact}
+                href="#services"
+                onClick={scrollToServices}
                 className="btn-primary"
               >
                 Programează o consultație
@@ -62,8 +62,8 @@ export default function Hero() {
           {/* Mobile-only buttons placed under image */}
           <div className="lg:hidden flex flex-col items-center gap-6 mt-4 w-full">
             <a
-              href="#contact"
-              onClick={scrollToContact}
+              href="#services"
+              onClick={scrollToServices}
               className="btn-primary w-full text-center"
             >
               Programează o consultație
@@ -73,7 +73,7 @@ export default function Hero() {
       </div>
       
       {/* Scroll Indicator */}
-      <div className="absolute bottom-6 lg:bottom-0 left-1/2 transform -translate-x-1/2">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 lg:hidden">
         <a href="#about" className="flex flex-col items-center text-sage-600 hover:text-sage-700 transition-colors">
           <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
