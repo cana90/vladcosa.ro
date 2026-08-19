@@ -60,7 +60,7 @@ export default function About() {
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="group flex items-center gap-2 text-sage-700 font-medium hover:text-sage-800 transition-colors pt-2 focus:outline-none"
               >
-                <span>{isExpanded ? 'Citește mai puțin' : 'Citește toata povestea'}</span>
+                <span>{isExpanded ? 'Citește mai puțin' : 'Citește mai departe'}</span>
                 <svg 
                   className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} 
                   fill="none" 

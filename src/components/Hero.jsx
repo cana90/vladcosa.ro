@@ -6,27 +6,29 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative flex min-h-[100svh] max-w-full items-center overflow-x-clip bg-gradient-to-br from-cream-50 via-cream-100 to-sage-50">
-      <div className="container-custom box-border w-full max-w-full py-3 [@media(min-height:760px)_and_(max-width:639px)]:py-5 sm:py-6 lg:py-16">
-        <div className="section-shell grid min-w-0 max-w-full items-center gap-3 [@media(min-height:760px)_and_(max-width:639px)]:gap-4 sm:gap-5 lg:grid-cols-2 lg:gap-8">
+      <div className="container-custom box-border w-full max-w-full py-3 [@media(min-height:760px)_and_(max-width:639px)]:py-5 sm:py-6 lg:py-16 [@media(min-width:1024px)_and_(max-height:700px)]:py-4">
+        <div className="section-shell grid min-w-0 items-center gap-3 [@media(min-height:760px)_and_(max-width:639px)]:gap-4 sm:gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-8 [@media(min-width:1024px)_and_(max-height:700px)]:gap-6">
           {/* Left Column - Text Content */}
-          <div className="min-w-0 space-y-2 lg:space-y-3">
-            <div className="space-y-1 sm:space-y-2">
-              <h1 className="text-5xl [@media(min-height:760px)_and_(max-width:639px)]:text-6xl sm:text-6xl lg:text-8xl font-light text-slate-900 leading-tight">
-                Vlad Coșa
-              </h1>
-              <p className="text-base [@media(min-height:760px)_and_(max-width:639px)]:text-lg sm:text-xl lg:text-2xl text-slate-600 font-light uppercase tracking-[0.16em] sm:tracking-widest">
-                Psiholog clinician
-              </p>
+          <div className="min-w-0 lg:flex lg:h-full lg:flex-col lg:justify-between">
+            <div className="space-y-2 lg:space-y-3">
+              <div className="space-y-1 sm:space-y-2">
+                <h1 className="text-5xl [@media(min-height:760px)_and_(max-width:639px)]:text-6xl sm:text-6xl lg:text-8xl [@media(min-width:1024px)_and_(max-height:700px)]:text-7xl font-light text-slate-900 leading-tight">
+                  Vlad Coșa
+                </h1>
+                <p className="text-base [@media(min-height:760px)_and_(max-width:639px)]:text-lg sm:text-xl lg:text-2xl [@media(min-width:1024px)_and_(max-height:700px)]:text-xl text-slate-600 font-light uppercase tracking-[0.16em] sm:tracking-widest">
+                  Psiholog clinician
+                </p>
+              </div>
+
+              <div className="w-24 h-px bg-sage-400"></div>
+
+              <div className="max-w-md break-words space-y-0.5 text-[15px] leading-[1.4] text-slate-700 [@media(min-height:760px)_and_(max-width:639px)]:text-[17px] sm:space-y-1 sm:text-lg sm:leading-relaxed lg:text-xl [@media(min-width:1024px)_and_(max-height:700px)]:max-w-none [@media(min-width:1024px)_and_(max-height:700px)]:text-lg">
+                <p>Sunt psiholog clinician și psihoterapeut Gestalt.</p>
+                <p>Cred că fiecare persoană are în sine resurse de creștere și vindecare.</p>
+                <p>Rolul meu este să creez un spațiu sigur, empatic și autentic în care aceste resurse să poată fi descoperite.</p>
+              </div>
             </div>
-            
-            <div className="w-24 h-px bg-sage-400"></div>
-            
-            <div className="max-w-md break-words space-y-0.5 text-[15px] leading-[1.4] text-slate-700 [@media(min-height:760px)_and_(max-width:639px)]:text-[17px] sm:space-y-1 sm:text-lg sm:leading-relaxed lg:text-xl">
-              <p>Sunt psiholog clinician și psihoterapeut Gestalt.</p>
-              <p>Cred că fiecare persoană are în sine resurse de creștere și vindecare.</p>
-              <p>Rolul meu este să creez un spațiu sigur, empatic și autentic în care aceste resurse să poată fi descoperite.</p>
-            </div>
-            
+
             <div className="hidden lg:flex flex-col sm:flex-row sm:items-center gap-3 pt-1">
               <a
                 href="#services"
@@ -43,10 +45,10 @@ export default function Hero() {
               </a>
             </div>
           </div>
-          
+
           {/* Right Column - Visual Element */}
-          <div className="relative flex min-w-0 max-w-full justify-center lg:justify-end">
-            <div className="relative box-border w-full min-w-0 max-w-sm">
+          <div className="relative flex min-w-0 max-w-full justify-center lg:justify-end [@media(min-width:1024px)_and_(max-height:700px)]:justify-start">
+            <div className="relative box-border w-full min-w-0 max-w-sm [@media(min-width:1024px)_and_(max-height:700px)]:w-[54svh]">
               <img 
                 src="/vlad-profile.jpg" 
                 alt="Vlad Coșa - Psiholog"
