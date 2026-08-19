@@ -179,15 +179,6 @@ export default function Navigation() {
                 </a>
               )
             })}
-            <a
-              href={calendlyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={openCalendlyPopup}
-              className="btn-primary !py-2 !px-6 text-sm"
-            >
-              Programează
-            </a>
           </div>
 
           {/* Mobile Menu Button */}
