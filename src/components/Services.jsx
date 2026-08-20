@@ -29,7 +29,7 @@ const services = [
     duration: "120 minute",
     price: "150 lei / participant",
     bookingOptions: [
-      { label: "Înscrie-te", ariaLabel: "Contactează-mă pentru terapia de grup", href: "#contact" },
+      { label: "Disponibil în curând", ariaLabel: "Contactează-mă pentru terapia de grup", href: "#contact" },
     ],
   },
   {
