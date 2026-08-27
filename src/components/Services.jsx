@@ -4,7 +4,7 @@ const services = [
   {
     title: "Terapie Individuală",
     format: "În persoană / online",
-    description: "Sesiuni personalizate pentru adulți care se confruntă cu anxietate, depresie, stres sau căutări identitare.",
+    description: "Sesiuni 1 la 1 pentru adolescenți și adulți personalizate la temele de lucru aduse",
     duration: "50 minute",
     price: "200 lei",
     bookingOptions: [
@@ -25,7 +25,7 @@ const services = [
   {
     title: "Terapie de Grup",
     format: "În persoană",
-    description: "Sesiuni într-un cadru sigur și confidențial, în care participanții pot explora relațiile, tiparele și experiențele personale alături de ceilalți.",
+    description: "Sesiuni de lucru în care participanții pot explora relațiile, tiparele și experiențele personale alături de ceilalți",
     duration: "120 minute",
     price: "150 lei / participant",
     bookingOptions: [
@@ -65,8 +65,7 @@ export default function Services() {
             Servicii
           </h2>
           <p className="section-lead">
-            Fiecare sesiune este adaptată nevoilor tale individuale, oferind un spațiu 
-            de siguranță pentru explorare și dezvoltare personală.
+            Fiecare sesiune este adaptată nevoilor tale individuale, oferind colaborare în persoană sau online, în limba română sau engleză.
           </p>
         </div>
         

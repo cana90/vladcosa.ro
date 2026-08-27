@@ -130,7 +130,7 @@ export default function Contact() {
               Contact
             </h2>
             <p className="section-lead">
-              Pentru întrebări sau informații suplimentare, putem intra în legătură prin detaliile de mai jos.
+              Pentru întrebări sau informații suplimentare, puteți lua legătura cu mine folosind datele de contact de mai jos.
             </p>
           </div>
 
