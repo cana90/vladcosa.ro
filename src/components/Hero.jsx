@@ -23,7 +23,7 @@ export default function Hero() {
               <div className="w-24 h-px bg-sage-400"></div>
 
               <div className="max-w-md break-words space-y-0.5 text-[15px] leading-[1.4] text-slate-700 [@media(min-height:760px)_and_(max-width:639px)]:text-[17px] sm:space-y-1 sm:text-lg sm:leading-relaxed lg:text-xl [@media(min-width:1024px)_and_(max-height:700px)]:max-w-none [@media(min-width:1024px)_and_(max-height:700px)]:text-lg">
-                <p>Sunt psihoterapeut Gestalt.</p>
+                <p>Sunt psiholog clinician și psihoterapeut Gestalt.</p>
                 <p>Cred că fiecare persoană are în sine resurse de creștere și vindecare.</p>
                 <p>Rolul meu este să creez un spațiu sigur, empatic și autentic în care aceste resurse să poată fi descoperite.</p>
               </div>
